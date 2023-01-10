@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MealsActivity"
+    android:background="#ffffff">
+
+    <include layout="@layout/action_bar" android:id="@+id/meals_action_bar"></include>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/meals_meals_tv"
+        android:layout_marginTop="100dp"
+        android:text="Meals for this week"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        >
+
+    </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/meals_meals_rv"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/meals_meals_tv"
+        tools:listitem="@layout/meal_card"
+
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>
