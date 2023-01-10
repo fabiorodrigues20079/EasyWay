@@ -1,18 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <TextView
+        android:id="@+id/main_appname_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Easyway Canteen"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        android:layout_marginTop="60dp"></TextView>
+    <ImageView
+        android:id="@+id/main_user_imgv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/user"
+        android:layout_below="@id/main_appname_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
+        ></ImageView>
+    <EditText
+        android:id="@+id/main_email_et"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text_border"
+        android:layout_below="@id/main_user_imgv"
+        android:layout_centerHorizontal="true"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
+        android:textSize="25sp"
+        android:layout_marginTop="50dp"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        ></EditText>
+    <EditText
+        android:id="@+id/main_password_et"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:textSize="25sp"
+        android:background="@drawable/edit_text_border"
+        android:layout_below="@id/main_email_et"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"></EditText>
+
+    <Button
+        android:id="@+id/main_login_btn"
+        android:layout_width="125dp"
+        android:layout_height="55dp"
+        android:text ="Login"
+        android:textSize="25sp"
+        android:layout_below="@id/main_password_et"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#0000FF"></Button>
+
+
+</RelativeLayout>
