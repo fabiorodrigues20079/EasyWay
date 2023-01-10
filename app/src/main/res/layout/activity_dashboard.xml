@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DashboardActivity"
+    android:background="#ffffff">
+
+
+    <include layout="@layout/action_bar" ></include>
+    <TextView
+        android:id="@+id/dashboard_welcome_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome, XXXXX"
+        android:textSize="35sp"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/black"
+        >
+
+    </TextView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dashboard_today_cv"
+        app:cardBackgroundColor="#fffffc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dashboard_welcome_tv"
+        android:layout_marginTop="20dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="20dp"
+
+        app:cardMaxElevation="12dp"
+        app:cardPreventCornerOverlap="true"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp">
+            <TextView
+                android:id="@+id/dashboard_today_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="What are you going to eat today?"
+                android:textSize="20sp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"></TextView>
+            <LinearLayout
+
+                android:layout_below="@id/dashboard_today_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:orientation="horizontal"
+                android:paddingBottom="50dp"
+                >
+                <ImageView
+                    android:id="@+id/dashboard_today_iv"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/food1"></ImageView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/dashboard_todayFood_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text= "Today test food"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"></TextView>
+                    <Button
+                        android:id="@+id/dash_today_bt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#add8ef"
+                        android:textColor="@color/black"
+                        android:text="See Details"></Button>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dashboard_tomorrow_cv"
+        app:cardBackgroundColor="#fffffc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dashboard_today_cv"
+        android:layout_marginTop="20dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="20dp"
+
+        app:cardMaxElevation="12dp"
+        app:cardPreventCornerOverlap="true"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp">
+            <TextView
+                android:id="@+id/dashboard_tomorrow_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Book your ticket for tomorrow!"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp"></TextView>
+            <LinearLayout
+
+                android:layout_below="@id/dashboard_tomorrow_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:orientation="horizontal"
+                android:paddingBottom="50dp"
+
+
+
+                >
+                <ImageView
+                    android:id="@+id/dashboard_tomorrow_iv"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/food2"></ImageView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+
+                    >
+
+                    <TextView
+                        android:id="@+id/dashboard_tomorrowFood_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text= "Tomorrow test food"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"></TextView>
+                    <Button
+                        android:id="@+id/dashboard_tomorrowFood_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#add8ef"
+                        android:textColor="@color/black"
+                        android:text="See Details"></Button>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
