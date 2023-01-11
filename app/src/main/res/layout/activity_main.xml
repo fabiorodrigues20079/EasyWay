@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    >
 
     <TextView
         android:id="@+id/main_appname_tv"
@@ -14,6 +15,7 @@
         android:textAlignment="center"
         android:textSize="40dp"
         android:layout_marginTop="60dp"></TextView>
+
     <ImageView
         android:id="@+id/main_user_imgv"
         android:layout_width="wrap_content"
@@ -23,6 +25,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
         ></ImageView>
+
+
     <EditText
         android:id="@+id/main_email_et"
         android:layout_width="350dp"
@@ -34,8 +38,8 @@
         android:hint="Email"
         android:textSize="25sp"
         android:layout_marginTop="50dp"
-
         ></EditText>
+
     <EditText
         android:id="@+id/main_password_et"
         android:layout_width="350dp"
