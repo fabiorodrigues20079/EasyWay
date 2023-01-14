@@ -9,9 +9,17 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.easyway.Http.HttpHelper
+import com.example.easyway.Models.Login
 import com.example.easyway.Models.Meal
+import com.example.easyway.Models.Token
+import com.example.easyway.Models.UserInfo
+import com.example.easyway.Services.LoginService
 import com.example.easyway.Services.MealService
 import com.example.easyway.Services.TicketService
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonParser
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
 
     val mealService = retrofit.create(MealService::class.java)
     val ticketService = retrofit.create(TicketService::class.java)
+    val loginService = retrofit.create(LoginService::class.java)
 
     val email: EditText by lazy {
         findViewById<EditText>(R.id.main_email_et)
@@ -46,7 +55,26 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val call = mealService.getAllMeals()
+        val call = mealService.get_all_meals_by_date("2023-01-07")
+        val log = loginService.Login(Login("a21126@alunos.ipca.pt","grandioso123"))
+
+        log.enqueue(object :Callback<List<Token>>{
+            override fun onResponse(call: Call<List<Token>>, response: Response<List<Token>>) {
+                val logged = response.body()
+                val user = logged?.get(0)?.user
+                val jsonParser = JsonParser()
+                val jsonObject = jsonParser.parse(user)
+                println(jsonObject.asJsonArray.get(0).asJsonObject.get("email"))
+            }
+
+
+
+            override fun onFailure(call: Call<List<Token>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+
+
 
         call.enqueue(object:Callback<List<Meal>>
         {
