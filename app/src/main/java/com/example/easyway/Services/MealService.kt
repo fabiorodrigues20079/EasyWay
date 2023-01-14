@@ -16,4 +16,8 @@ interface MealService
     @GET("/meal/{date}")
     fun get_all_meals_by_date(@Path("date") date: String): Call<List<Meal>>
 
+
+    @GET("/meal/week")
+    fun getAllMealsForOneWeek(): Call<List<Meal>>
+
 }

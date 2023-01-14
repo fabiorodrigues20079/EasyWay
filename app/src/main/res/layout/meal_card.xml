@@ -42,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2,75€"
+                android:id="@+id/meal_price_tv"
                 android:layout_gravity="center"
                 android:textColor="@color/black"
                 ></TextView>
