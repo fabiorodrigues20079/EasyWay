@@ -77,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this@LoginActivity,DashboardActivity::class.java)
                     intent.putExtra("name",newUser.get("name").toString())
                     startActivity(intent)
+                    print("viva")
                 }
                 else{
                     Toast.makeText(this@LoginActivity,"Incorrect Credentials",Toast.LENGTH_LONG).show()
