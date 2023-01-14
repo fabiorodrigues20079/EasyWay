@@ -17,16 +17,14 @@ class MealsActivity : AppCompatActivity() {
 
     val baseURL = "http://10.0.2.2:5000/"
     var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
-
     val mealService = retrofit.create(MealService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meals)
+        // val call = mealService.get_all_meals_by_date("2023-01-07")
 
-        val call = mealService.getAllMeals()
-
-        call.enqueue(object: Callback<List<Meal>>
+        /*call.enqueue(object:Callback<List<Meal>>
         {
             override fun onResponse(call: Call<List<Meal>>, response: Response<List<Meal>>) {
                 if(response.code()==200)
@@ -34,10 +32,11 @@ class MealsActivity : AppCompatActivity() {
                     val meals = response.body()
                     println(meals)
                 }
-            }
+        }
             override fun onFailure(call: Call<List<Meal>>, t: Throwable) {
-                println("Meals not available!")
-            }
-        })
+            println("Meals not available!")
+    }
+})
+*/
     }
 }
