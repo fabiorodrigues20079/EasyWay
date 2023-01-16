@@ -70,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 if(response.code() == 200){
                     val logged = response.body()
+                    println(logged)
                     val user = logged?.get(0)?.user
                     val jsonParser = JsonParser()
                     val jsonObject = jsonParser.parse(user)
@@ -86,9 +87,11 @@ class LoginActivity : AppCompatActivity() {
                         email = email.substring(1,email.length-1)
                         var idNumber = newUser.get("idNumber").toString()
                         idNumber = idNumber.substring(1,idNumber.length-1)
+                        var pid = newUser.get("pid").toString()
                         putString("name",name)
                         putString("email",email)
                         putString("idNumber",idNumber)
+                        putString("pid",pid)
                         apply()
                     }
 

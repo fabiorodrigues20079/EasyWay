@@ -34,8 +34,13 @@ class ProfileDetailsActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.bar_food_iv)
     }
 
+    val buttonInfo:ImageView by lazy {
+        findViewById<ImageView>(R.id.bar_info_iv)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+
+
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_details)
 
@@ -62,6 +67,11 @@ class ProfileDetailsActivity : AppCompatActivity() {
 
         buttonMeals.setOnClickListener{
             val intent = Intent(this@ProfileDetailsActivity,WeekMealsActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonInfo.setOnClickListener{
+            val intent = Intent(this@ProfileDetailsActivity,TicketActivity::class.java)
             startActivity(intent)
         }
 

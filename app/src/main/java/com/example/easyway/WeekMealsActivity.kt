@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easyway.Models.Meal
 import com.example.easyway.Services.MealService
+import com.example.easyway.Services.TicketService
 import com.example.easyway.adapters.MealAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,10 +34,15 @@ class WeekMealsActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.bar_balance_iv)
     }
 
+    val buttonInfo:ImageView by lazy {
+        findViewById<ImageView>(R.id.bar_info_iv)
+    }
+
     // Retrofit
     val baseURL = "http://10.0.2.2:5000/"
     var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
     val mealService = retrofit.create(MealService::class.java)
+    val ticketService = retrofit.create(TicketService::class.java)
     // Layout
     val mealsRv by lazy { findViewById<RecyclerView>(R.id.meals_meals_rv)}
 
@@ -57,6 +63,27 @@ class WeekMealsActivity : AppCompatActivity() {
                 val adapter = MealAdapter(meals)
                 mealsRv.adapter = adapter
                 println(meals)
+                adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener{
+                    override fun onItemclick(position: Int) {
+                        var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+                        val pid = sharedPref.getString("pid",null)
+                        val result = ticketService.insertTicket(meals.get(position),pid.toString())
+                        println(result)
+                        result.enqueue(object :Callback<List<String>>{
+                            override fun onResponse(
+                                call: Call<List<String>>,
+                                response: Response<List<String>>
+                            ) {
+                                val intent = Intent(this@WeekMealsActivity,DashboardActivity::class.java)
+                                startActivity(intent)
+                            }
+
+                            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                                println("error")
+                            }
+                        })
+                    }
+                })
             }
 
             override fun onFailure(call: Call<List<Meal>>, t: Throwable) {
@@ -77,6 +104,11 @@ class WeekMealsActivity : AppCompatActivity() {
 
         buttonBalance.setOnClickListener  {
             val intent = Intent(this@WeekMealsActivity,BalanceActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonInfo.setOnClickListener{
+            val intent = Intent(this@WeekMealsActivity,TicketActivity::class.java)
             startActivity(intent)
         }
     }
