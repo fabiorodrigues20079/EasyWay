@@ -106,26 +106,4 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 }
-    /*/ Método que será invocado quando o botão for pressionado
-    @RequiresApi(Build.VERSION_CODES.N)
-    override fun onClick(p0: View?)
-    {
-        // Tenta fazer login
-        try
-        {
-            var token = HttpHelper.login(email.text.toString(),password.text.toString())
-            Toast.makeText(this@LoginActivity,token.token,Toast.LENGTH_LONG).show()
-        }
 
-        // Caso não liberta uma exception
-        catch (e:java.lang.Exception)
-        {
-            Toast.makeText(this,e.message,Toast.LENGTH_LONG).show()
-        }
-
-
-
-    }
-
-
-    */
