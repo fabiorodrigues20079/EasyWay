@@ -25,11 +25,13 @@ import java.time.format.DateTimeFormatter
 
 class MealsActivity : AppCompatActivity() {
 
+    //Obter data de hoje para ir buscar a ementa de hoje
     @RequiresApi(Build.VERSION_CODES.O)
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     @RequiresApi(Build.VERSION_CODES.O)
     val tomorrow= LocalDateTime.now().format(formatter)
 
+    //Declaraçao de Variaveis
     val buttonHome: ImageView by lazy {
         findViewById<ImageView>(R.id.bar_home_iv)
     }
@@ -51,11 +53,12 @@ class MealsActivity : AppCompatActivity() {
     }
 
 
-        // Retrofit
+    // Retrofit
     val baseURL = "http://10.0.2.2:5000/"
     var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
     val mealService = retrofit.create(MealService::class.java)
     val ticketService = retrofit.create(TicketService::class.java)
+
     // Layout
     val mealsRv by lazy { findViewById<RecyclerView>(R.id.meals_meals_rv)}
 
@@ -67,45 +70,9 @@ class MealsActivity : AppCompatActivity() {
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         mealsRv.layoutManager = linearLayoutManager
-        val call = mealService.get_all_meals_by_date(tomorrow.toString())
 
-
-        call.enqueue(object:Callback<List<Meal>>{
-            override fun onResponse(call: Call<List<Meal>>, response: Response<List<Meal>>) {
-                //Adicionar à recycler view
-                val meals = response.body()!!
-                val adapter = MealAdapter(meals)
-                mealsRv.adapter = adapter
-                println(meals)
-                adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener{
-                    override fun onItemclick(position: Int) {
-                        var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
-                        val pid = sharedPref.getString("pid",null)
-                        val result = ticketService.insertTicket(meals.get(position),pid.toString())
-                        println(result)
-                        result.enqueue(object :Callback<List<String>>{
-                            override fun onResponse(
-                                call: Call<List<String>>,
-                                response: Response<List<String>>
-                            ) {
-
-                                val intent = Intent(this@MealsActivity,DashboardActivity::class.java)
-                                startActivity(intent)
-                            }
-
-                            override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                                println("error")
-                            }
-                        })
-                    }
-                })
-            }
-
-            override fun onFailure(call: Call<List<Meal>>, t: Throwable) {
-                println("No meals found")
-            }
-        })
-
+        //obter refeições para hoje
+        get_today_meals()
 
         buttonProfileDetails.setOnClickListener {
             val intent = Intent(this,ProfileDetailsActivity::class.java)
@@ -131,5 +98,46 @@ class MealsActivity : AppCompatActivity() {
             val intent = Intent(this@MealsActivity,TicketActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun get_today_meals(){
+        val call = mealService.get_all_meals_by_date(tomorrow.toString())
+
+
+        call.enqueue(object:Callback<List<Meal>>{
+            override fun onResponse(call: Call<List<Meal>>, response: Response<List<Meal>>) {
+                //Adicionar à recycler view
+                val meals = response.body()!!
+                val adapter = MealAdapter(meals)
+                mealsRv.adapter = adapter
+                println(meals)
+                adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener{
+                    override fun onItemclick(position: Int) {
+                        var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+                        val pid = sharedPref.getString("pid",null)
+                        val result = ticketService.insertTicket(meals.get(position),pid.toString())
+                        println(result)
+                        result.enqueue(object :Callback<List<String>>{
+                            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>)
+                            {
+
+                                val intent = Intent(this@MealsActivity,DashboardActivity::class.java)
+                                startActivity(intent)
+                            }
+
+                            override fun onFailure(call: Call<List<String>>, t: Throwable)
+                            {
+                                println("error")
+                            }
+                        })
+                    }
+                })
+            }
+
+            override fun onFailure(call: Call<List<Meal>>, t: Throwable) {
+                println("No meals found")
+            }
+        })
     }
 }

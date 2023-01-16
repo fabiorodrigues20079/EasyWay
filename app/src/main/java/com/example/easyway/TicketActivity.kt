@@ -56,11 +56,8 @@ class TicketActivity : AppCompatActivity() {
     }
 
     // Retrofit
-
     val baseURL = "http://10.0.2.2:5000/"
     var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
-
-
     val ticketService = retrofit.create(TicketService::class.java)
 
 
@@ -74,6 +71,38 @@ class TicketActivity : AppCompatActivity() {
         ticketRv.layoutManager = linearLayoutManager
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
         val pid = sharedPref.getString("pid",null)
+        getTickets(pid.toString())
+
+
+        buttonProfileDetails.setOnClickListener {
+            val intent = Intent(this@TicketActivity,ProfileDetailsActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonBalance.setOnClickListener  {
+            val intent = Intent(this@TicketActivity,BalanceActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonMeals.setOnClickListener{
+            val intent = Intent(this@TicketActivity,WeekMealsActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        buttonInfo.setOnClickListener{
+            val intent = Intent(this@TicketActivity,TicketActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonHome.setOnClickListener {
+            val intent = Intent(this,DashboardActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    fun getTickets(pid:String){
         val call = ticketService.getClientTickets(pid!!)
 
         call.enqueue(object: Callback<List<Ticket>> {
@@ -109,34 +138,6 @@ class TicketActivity : AppCompatActivity() {
                 println("No tickets")
             }
         })
-
-        buttonProfileDetails.setOnClickListener {
-            val intent = Intent(this@TicketActivity,ProfileDetailsActivity::class.java)
-            startActivity(intent)
-        }
-
-        buttonBalance.setOnClickListener  {
-            val intent = Intent(this@TicketActivity,BalanceActivity::class.java)
-            startActivity(intent)
-        }
-
-        buttonMeals.setOnClickListener{
-            val intent = Intent(this@TicketActivity,WeekMealsActivity::class.java)
-            startActivity(intent)
-        }
-
-
-        buttonInfo.setOnClickListener{
-            val intent = Intent(this@TicketActivity,TicketActivity::class.java)
-            startActivity(intent)
-        }
-
-        buttonHome.setOnClickListener {
-            val intent = Intent(this,DashboardActivity::class.java)
-            startActivity(intent)
-        }
-
-
 
     }
 }

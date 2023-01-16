@@ -44,6 +44,7 @@ class ProfileDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_details)
 
+        //obter dados da sharedpreferences
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
         val name = sharedPref.getString("name",null)
         val email = sharedPref.getString("email",null)
