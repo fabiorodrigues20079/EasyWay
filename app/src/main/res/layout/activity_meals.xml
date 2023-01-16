@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/meals_meals_tv"
         android:layout_marginTop="100dp"
-        android:text="@string/Book_Week_meals"
+        android:text="@string/Book_Meal_today"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="30sp"
