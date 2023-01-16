@@ -74,15 +74,31 @@ class LoginActivity : AppCompatActivity() {
                     val jsonParser = JsonParser()
                     val jsonObject = jsonParser.parse(user)
                     val newUser = jsonObject.asJsonArray.get(0).asJsonObject
+
+                    // Utilização de SharedPreferences
+                    val sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    editor.apply()
+                    {
+                        var name = newUser.get("name").toString()
+                        name = name.substring(1,name.length-1)
+                        var email = newUser.get("email").toString()
+                        email = email.substring(1,email.length-1)
+                        var idNumber = newUser.get("idNumber").toString()
+                        idNumber = idNumber.substring(1,idNumber.length-1)
+                        putString("name",name)
+                        putString("email",email)
+                        putString("idNumber",idNumber)
+                        apply()
+                    }
+
                     val intent = Intent(this@LoginActivity,DashboardActivity::class.java)
-                    intent.putExtra("name",newUser.get("name").toString())
+
                     startActivity(intent)
-                    print("viva")
                 }
                 else{
                     Toast.makeText(this@LoginActivity,"Incorrect Credentials",Toast.LENGTH_LONG).show()
                 }
-
             }
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 Toast.makeText(this@LoginActivity,"Incorrect Credentials",Toast.LENGTH_LONG).show()
