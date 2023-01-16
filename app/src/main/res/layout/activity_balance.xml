@@ -22,13 +22,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cash"
+            android:text="@string/Cash"
             android:textSize="30dp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_gravity="center">
         </TextView>
         <TextView
+            android:id="@+id/tv_balance_cash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="€350.00"
