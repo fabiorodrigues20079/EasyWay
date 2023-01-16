@@ -41,6 +41,10 @@ class DashboardActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.bar_food_iv)
     }
 
+    val buttonInfo:ImageView by lazy {
+        findViewById<ImageView>(R.id.bar_info_iv)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +77,11 @@ class DashboardActivity : AppCompatActivity() {
 
         buttonTomorrow.setOnClickListener{
             val intent = Intent(this@DashboardActivity,WeekMealsActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonInfo.setOnClickListener{
+            val intent = Intent(this@DashboardActivity,TicketActivity::class.java)
             startActivity(intent)
         }
 

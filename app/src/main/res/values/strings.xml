@@ -6,4 +6,7 @@
     <string name="Todays_meals">Today\'s Meals</string>
     <string name="Week_meals">Week Meals</string>
     <string name="Cash">Cash</string>
+    <string name="My_tickets">My tickets</string>
+    <string name="tickets_cancel">Cancel</string>
+
 </resources>

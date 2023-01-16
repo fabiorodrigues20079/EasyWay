@@ -38,8 +38,12 @@ class BalanceActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.bar_food_iv)
     }
 
+    val buttonInfo:ImageView by lazy {
+        findViewById<ImageView>(R.id.bar_info_iv)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_balance)
 
@@ -72,6 +76,11 @@ class BalanceActivity : AppCompatActivity() {
 
         buttonMeals.setOnClickListener{
             val intent = Intent(this@BalanceActivity,WeekMealsActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonInfo.setOnClickListener{
+            val intent = Intent(this@BalanceActivity,TicketActivity::class.java)
             startActivity(intent)
         }
 }
