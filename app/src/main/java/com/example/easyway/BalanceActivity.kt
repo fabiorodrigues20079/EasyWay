@@ -16,72 +16,82 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class BalanceActivity : AppCompatActivity() {
-// Retrofit
+        // Retrofit
+        val baseURL = "http://10.0.2.2:5000/"
+        var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
+        val BalanceService = retrofit.create(UserService::class.java)
 
-    val baseURL = "http://10.0.2.2:5000/"
-    var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
+        //Declaração de Variáveis
+        val balanceTv: TextView by lazy {
+            findViewById<TextView>(R.id.tv_balance_cash)
+        }
+        val buttonHome: ImageView by lazy {
+            findViewById<ImageView>(R.id.bar_home_iv)
+        }
 
-    val BalanceService = retrofit.create(UserService::class.java)
+        val buttonProfileDetails: ImageView by lazy {
+            findViewById<ImageView>(R.id.bar_profile_iv)
+        }
 
-    val balanceTv: TextView by lazy {
-        findViewById<TextView>(R.id.tv_balance_cash)
-    }
-    val buttonHome: ImageView by lazy {
-        findViewById<ImageView>(R.id.bar_home_iv)
-    }
+        val buttonMeals:ImageView by lazy {
+            findViewById<ImageView>(R.id.bar_food_iv)
+        }
 
-    val buttonProfileDetails: ImageView by lazy {
-        findViewById<ImageView>(R.id.bar_profile_iv)
-    }
-
-    val buttonMeals:ImageView by lazy {
-        findViewById<ImageView>(R.id.bar_food_iv)
-    }
-
-    val buttonInfo:ImageView by lazy {
-        findViewById<ImageView>(R.id.bar_info_iv)
-    }
+        val buttonInfo:ImageView by lazy {
+            findViewById<ImageView>(R.id.bar_info_iv)
+        }
 
 
         override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_balance)
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_balance)
 
-        var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
-        val number = sharedPref.getString("idNumber",null)
-        val call = BalanceService.userBalance(number!!)
-        call.enqueue(object: Callback<List<String>> {
-            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                //Adicionar à recycler view
-                var balance = response.body()!!
-                var newBalance = balance.get(0)
-                balanceTv.setText("€$newBalance")
+            //Acessar os dados da SharedPreferences
+            var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+            val number = sharedPref.getString("idNumber",null)
+            getbalance(number.toString())
 
+
+            buttonProfileDetails.setOnClickListener {
+                val intent = Intent(this,ProfileDetailsActivity::class.java)
+                startActivity(intent)
             }
 
-            override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                println("No balance found")
+            buttonHome.setOnClickListener {
+                val intent = Intent(this,DashboardActivity::class.java)
+                startActivity(intent)
             }
-        })
 
-        buttonProfileDetails.setOnClickListener {
-            val intent = Intent(this,ProfileDetailsActivity::class.java)
-            startActivity(intent)
+            buttonMeals.setOnClickListener{
+                val intent = Intent(this@BalanceActivity,WeekMealsActivity::class.java)
+                startActivity(intent)
+            }
+
+            buttonInfo.setOnClickListener{
+                val intent = Intent(this@BalanceActivity,TicketActivity::class.java)
+                startActivity(intent)
+            }
         }
 
-        buttonHome.setOnClickListener {
-            val intent = Intent(this,DashboardActivity::class.java)
-            startActivity(intent)
+        //Função para obter o salda de conta do cliente
+        fun getbalance(id:String){
+            val call = BalanceService.userBalance(id!!)
+
+            call.enqueue(object: Callback<List<String>> {
+                override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                    //Adicionar à recycler view
+                    var balance = response.body()!!
+                    var newBalance = balance.get(0)
+                    balanceTv.setText("€$newBalance")
+
+                }
+
+                override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                    println("No balance found")
+                }
+            })
+
         }
 
-        buttonMeals.setOnClickListener{
-            val intent = Intent(this@BalanceActivity,WeekMealsActivity::class.java)
-            startActivity(intent)
-        }
 
-        buttonInfo.setOnClickListener{
-            val intent = Intent(this@BalanceActivity,TicketActivity::class.java)
-            startActivity(intent)
-        }
-}
     }

@@ -12,7 +12,6 @@ import android.widget.TextView
 class DashboardActivity : AppCompatActivity() {
 
     // Variáveis
-
     val welcomeTv: TextView by lazy {
         findViewById<TextView>(R.id.dashboard_welcome_tv)
     }
@@ -49,6 +48,8 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        //Acessar os dados da sharedPreference
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
         val name = sharedPref.getString("name",null)
 
@@ -58,7 +59,6 @@ class DashboardActivity : AppCompatActivity() {
             val intent = Intent(this,MealsActivity::class.java)
             startActivity(intent)
         }
-
 
         buttonProfileDetails.setOnClickListener {
             val intent = Intent(this,ProfileDetailsActivity::class.java)

@@ -54,6 +54,33 @@ class WeekMealsActivity : AppCompatActivity() {
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         mealsRv.layoutManager = linearLayoutManager
+
+        //obter todas as ementas da semana
+        getWeekMeals()
+
+
+        buttonProfileDetails.setOnClickListener {
+            val intent = Intent(this@WeekMealsActivity,ProfileDetailsActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonHome.setOnClickListener {
+            val intent = Intent(this@WeekMealsActivity,DashboardActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonBalance.setOnClickListener  {
+            val intent = Intent(this@WeekMealsActivity,BalanceActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonInfo.setOnClickListener{
+            val intent = Intent(this@WeekMealsActivity,TicketActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    fun getWeekMeals(){
         val call = mealService.getAllMealsForOneWeek()
 
         call.enqueue(object: Callback<List<Meal>> {
@@ -91,25 +118,5 @@ class WeekMealsActivity : AppCompatActivity() {
             }
         })
 
-
-        buttonProfileDetails.setOnClickListener {
-            val intent = Intent(this@WeekMealsActivity,ProfileDetailsActivity::class.java)
-            startActivity(intent)
-        }
-
-        buttonHome.setOnClickListener {
-            val intent = Intent(this@WeekMealsActivity,DashboardActivity::class.java)
-            startActivity(intent)
-        }
-
-        buttonBalance.setOnClickListener  {
-            val intent = Intent(this@WeekMealsActivity,BalanceActivity::class.java)
-            startActivity(intent)
-        }
-
-        buttonInfo.setOnClickListener{
-            val intent = Intent(this@WeekMealsActivity,TicketActivity::class.java)
-            startActivity(intent)
-        }
     }
 }

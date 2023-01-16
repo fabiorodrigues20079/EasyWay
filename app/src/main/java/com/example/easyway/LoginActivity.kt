@@ -21,17 +21,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginActivity : AppCompatActivity() {
 
-    // Declaração de variáveis
+
 
     // Retrofit
-
     val baseURL = "http://10.0.2.2:5000/"
     var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
 
-    val mealService = retrofit.create(MealService::class.java)
-    val ticketService = retrofit.create(TicketService::class.java)
+
     val loginService = retrofit.create(LoginService::class.java)
 
+    // Declaração de variáveis
     val email: EditText by lazy {
         findViewById<EditText>(R.id.main_email_et)
     }
@@ -55,14 +54,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-
-
-
-
-
-       // button.setOnClickListener(this)
     }
 
+    //Funcao para fazer o login
     fun login(email:String,password:String){
         val log = loginService.Login(Login(email,password))
 
@@ -70,7 +64,6 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 if(response.code() == 200){
                     val logged = response.body()
-                    println(logged)
                     val user = logged?.get(0)?.user
                     val jsonParser = JsonParser()
                     val jsonObject = jsonParser.parse(user)
@@ -96,7 +89,6 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     val intent = Intent(this@LoginActivity,DashboardActivity::class.java)
-
                     startActivity(intent)
                 }
                 else{
