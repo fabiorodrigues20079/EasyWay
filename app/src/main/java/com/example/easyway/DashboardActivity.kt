@@ -67,7 +67,7 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         buttonMeals.setOnClickListener{
-            val intent = Intent(this@DashboardActivity,WeekMealsActivity::class.java)
+            val intent = Intent(this@DashboardActivity,MealsActivity::class.java)
             startActivity(intent)
         }
 
