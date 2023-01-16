@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     xmlns:tools="http://schemas.android.com/tools">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,39 +16,45 @@
             android:background="#add8e6"
             android:gravity="center"
             >
-
             <ImageView
                 android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_baseline_menu_24"
+                android:id="@+id/bar_home_iv"
+                android:layout_height="30dp"
+                android:layout_weight="2"
+
+                android:src="@drawable/ic_baseline_home_24"
                 ></ImageView>
 
             <ImageView
                 android:layout_width="50dp"
                 android:id="@+id/bar_food_iv"
-                android:layout_height="50dp"
-                android:layout_marginStart="60dp"
+                android:layout_height="30dp"
+                android:layout_weight="2"
                 android:src="@drawable/ic_baseline_restaurant_24"></ImageView>
             <ImageView
                 android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_height="30dp"
                 android:id="@+id/bar_bag_iv"
-                android:layout_marginStart="20dp"
+                android:layout_weight="2"
                 android:src="@drawable/ic_baseline_calendar_month_24"></ImageView>
             <ImageView
                 android:layout_width="50dp"
                 android:id="@+id/bar_balance_iv"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
+                android:layout_height="30dp"
+                android:layout_weight="2"
                 android:src="@drawable/ic_baseline_euro_24"></ImageView>
             <ImageView
-                android:id="@+id/bar_profile_iv"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:id="@+id/bar_info_iv"
+                android:layout_height="30dp"
+                android:layout_weight="2"
+                android:src="@drawable/info2"></ImageView>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:id="@+id/bar_profile_iv"
                 android:src="@drawable/ic_baseline_person_24"
-                android:layout_weight="1"
-                android:layout_marginStart="40dp"
-
+                android:layout_weight="2"
                 ></ImageView>
         </LinearLayout>
     </RelativeLayout>

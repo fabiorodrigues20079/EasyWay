@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BalanceActivity"
+    android:background="@color/white"
+    >
+
+    <include android:id="@+id/profile_actionBar" layout= "@layout/action_bar"></include>
+
+    <LinearLayout
+        android:id="@+id/firts_balance_ly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        app:circularflow_defaultRadius="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/profile_actionBar"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cash"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_gravity="center">
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="€350.00"
+            android:textSize="50dp"
+            android:textStyle="bold"
+            android:textColor="#add8e6"
+            android:layout_gravity="center">
+        </TextView>
+
+    </LinearLayout>
+    <view class="androidx.appcompat.app.AlertController$RecycleListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/firts_balance_ly"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </view>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

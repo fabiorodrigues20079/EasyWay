@@ -5,47 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
+    android:background="@color/white"
     >
-
-    <TextView
-        android:id="@+id/main_appname_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Easyway Canteen"
-        android:textAlignment="center"
-        android:textSize="40dp"
-        android:layout_marginTop="60dp"></TextView>
 
     <ImageView
         android:id="@+id/main_user_imgv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/user"
-        android:layout_below="@id/main_appname_tv"
+        android:layout_width="match_parent"
+        android:layout_height="203dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
-        ></ImageView>
+        android:src="@drawable/img_1">
 
 
+    </ImageView>
     <EditText
         android:id="@+id/main_email_et"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:background="@drawable/edit_text_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/main_user_imgv"
         android:layout_centerHorizontal="true"
         android:inputType="textEmailAddress"
         android:hint="Email"
+        android:textColorHint="#666666"
         android:textSize="25sp"
+        android:textColor="@color/black"
         android:layout_marginTop="50dp"
-        ></EditText>
 
+        ></EditText>
     <EditText
         android:id="@+id/main_password_et"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textSize="25sp"
-        android:background="@drawable/edit_text_border"
+        android:textColorHint="#666666"
+        android:textColor="@color/black"
         android:layout_below="@id/main_email_et"
         android:hint="Password"
         android:inputType="textPassword"
@@ -61,7 +54,8 @@
         android:layout_below="@id/main_password_et"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:backgroundTint="#0000FF"></Button>
-
+        android:backgroundTint="#b2e9f0"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#ffffff"></Button>
 
 </RelativeLayout>
