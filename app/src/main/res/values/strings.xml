@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">EasyWay</string>
+    <string name="Book_Week_meals">Book your ticket for the week!</string>
+    <string name="Book_Meal_today">Book your ticket for today!</string>
+    <string name="Buy_now">Buy now!</string>
+    <string name="Todays_meals">Today\'s Meals</string>
+    <string name="Week_meals">Week Meals</string>
 </resources>

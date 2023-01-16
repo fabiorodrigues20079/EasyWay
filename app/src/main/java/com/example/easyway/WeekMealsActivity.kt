@@ -19,13 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-
-class MealsActivity : AppCompatActivity() {
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    @RequiresApi(Build.VERSION_CODES.O)
-    val tomorrow= LocalDateTime.now().plusDays(1).format(formatter)
+class WeekMealsActivity : AppCompatActivity() {
 
     val buttonHome: ImageView by lazy {
         findViewById<ImageView>(R.id.bar_home_iv)
@@ -35,12 +29,8 @@ class MealsActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.bar_profile_iv)
     }
 
-    val buttonBalance:ImageView by lazy {
+    val buttonBalance: ImageView by lazy {
         findViewById<ImageView>(R.id.bar_balance_iv)
-    }
-
-    val buttonMeals:ImageView by lazy {
-        findViewById<ImageView>(R.id.bar_food_iv)
     }
 
     // Retrofit
@@ -54,13 +44,13 @@ class MealsActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_meals)
+        setContentView(R.layout.activity_week_meals)
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         mealsRv.layoutManager = linearLayoutManager
-        val call = mealService.get_all_meals_by_date(tomorrow.toString())
+        val call = mealService.getAllMealsForOneWeek()
 
-        call.enqueue(object:Callback<List<Meal>>{
+        call.enqueue(object: Callback<List<Meal>> {
             override fun onResponse(call: Call<List<Meal>>, response: Response<List<Meal>>) {
                 //Adicionar à recycler view
                 val meals = response.body()!!
@@ -76,22 +66,17 @@ class MealsActivity : AppCompatActivity() {
 
 
         buttonProfileDetails.setOnClickListener {
-            val intent = Intent(this,ProfileDetailsActivity::class.java)
+            val intent = Intent(this@WeekMealsActivity,ProfileDetailsActivity::class.java)
             startActivity(intent)
         }
 
         buttonHome.setOnClickListener {
-            val intent = Intent(this,DashboardActivity::class.java)
+            val intent = Intent(this@WeekMealsActivity,DashboardActivity::class.java)
             startActivity(intent)
         }
 
         buttonBalance.setOnClickListener  {
-            val intent = Intent(this@MealsActivity,BalanceActivity::class.java)
-            startActivity(intent)
-        }
-
-        buttonMeals.setOnClickListener{
-            val intent = Intent(this@MealsActivity,WeekMealsActivity::class.java)
+            val intent = Intent(this@WeekMealsActivity,BalanceActivity::class.java)
             startActivity(intent)
         }
     }

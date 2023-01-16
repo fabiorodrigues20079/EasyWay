@@ -29,29 +29,52 @@ class DashboardActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.bar_profile_iv)
     }
 
+    val buttonHome:ImageView by lazy {
+       findViewById<ImageView>(R.id.bar_home_iv)
+    }
+
+    val buttonBalance:ImageView by lazy {
+        findViewById<ImageView>(R.id.bar_balance_iv)
+    }
+
+    val buttonMeals:ImageView by lazy {
+        findViewById<ImageView>(R.id.bar_food_iv)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
         val name = sharedPref.getString("name",null)
 
-        welcomeTv.setText("Welcome $name")
+        welcomeTv.setText("Welcome $name") // Welcome text
 
         buttonToday.setOnClickListener {
             val intent = Intent(this,MealsActivity::class.java)
             startActivity(intent)
         }
 
-        buttonTomorrow.setOnClickListener {
-            val intent = Intent(this,MealsActivity::class.java)
-            startActivity(intent)
-        }
 
         buttonProfileDetails.setOnClickListener {
             val intent = Intent(this,ProfileDetailsActivity::class.java)
             startActivity(intent)
         }
 
+       buttonBalance.setOnClickListener  {
+            val intent = Intent(this@DashboardActivity,BalanceActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonMeals.setOnClickListener{
+            val intent = Intent(this@DashboardActivity,WeekMealsActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonTomorrow.setOnClickListener{
+            val intent = Intent(this@DashboardActivity,WeekMealsActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }

@@ -4,23 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MealsActivity"
-    android:background="#ffffff">
+    tools:context=".WeekMealsActivity"
+    android:background="@color/white"
+    >
 
     <include layout="@layout/action_bar" android:id="@+id/meals_action_bar"></include>
 
     <TextView
+        android:id="@+id/meals_week_meals_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/meals_meals_tv"
         android:layout_marginTop="100dp"
         android:text="@string/Book_Week_meals"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="30sp"
-        >
-
-    </TextView>
+       />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -28,8 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/meals_meals_tv"
         tools:listitem="@layout/meal_card"
-
-        >
+        tools:ignore="NotSibling">
 
     </androidx.recyclerview.widget.RecyclerView>
 
