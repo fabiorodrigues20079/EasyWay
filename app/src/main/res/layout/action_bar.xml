@@ -40,9 +40,9 @@
                 android:layout_marginStart="15dp"
                 android:src="@drawable/ic_baseline_euro_24"></ImageView>
             <ImageView
+                android:id="@+id/bar_profile_iv"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/bar_profile_iv"
                 android:src="@drawable/ic_baseline_person_24"
                 android:layout_weight="1"
                 android:layout_marginStart="40dp"
