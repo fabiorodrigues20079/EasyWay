@@ -106,6 +106,7 @@ class TicketBagActivity : AppCompatActivity() {
         }
     }
 
+
     fun getTicketBag(){
         val call = ticketBagService.getTicketBagItems()
 
@@ -162,4 +163,6 @@ class TicketBagActivity : AppCompatActivity() {
         })
 
     }
+
+
 }

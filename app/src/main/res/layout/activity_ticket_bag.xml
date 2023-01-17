@@ -7,12 +7,12 @@
     tools:context=".TicketBagActivity"
     android:background="#ffffff">
 
-    <include layout="@layout/action_bar" android:id="@+id/meals_action_bar"></include>
+    <include layout="@layout/action_bar" android:id="@+id/ticketbag_action_bar"></include>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/meals_meals_tv"
+        android:id="@+id/ticketbag_title_tv"
         android:layout_marginTop="100dp"
         android:text="Ticket Bag: "
         android:textStyle="bold"
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:id="@+id/ticketbag_tickets_rv"
         android:layout_height="wrap_content"
-        android:layout_below="@id/meals_meals_tv"
+        android:layout_below="@id/ticketbag_title_tv"
         tools:listitem="@layout/ticket_bag_card"
 
         >
