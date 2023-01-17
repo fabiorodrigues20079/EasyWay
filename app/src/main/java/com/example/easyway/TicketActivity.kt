@@ -3,6 +3,7 @@ package com.example.easyway
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -55,6 +56,7 @@ class TicketActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.bar_info_iv)
     }
 
+    val ticketBagIcon: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
     // Retrofit
     val baseURL = "http://10.0.2.2:5000/"
     var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
@@ -71,6 +73,13 @@ class TicketActivity : AppCompatActivity() {
         ticketRv.layoutManager = linearLayoutManager
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
         val pid = sharedPref.getString("pid",null)
+
+
+        val isEmployee = sharedPref.getInt("isEmployee",0)
+
+        if(isEmployee == 1) {
+            ticketBagIcon.visibility = View.VISIBLE
+        }
         getTickets(pid.toString())
 
 

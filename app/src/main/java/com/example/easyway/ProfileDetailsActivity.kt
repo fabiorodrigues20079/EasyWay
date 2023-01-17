@@ -3,6 +3,7 @@ package com.example.easyway
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -10,6 +11,7 @@ class ProfileDetailsActivity : AppCompatActivity() {
 
     // Variáveis
 
+    val ticketBagIcon: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
     val nameTextView:TextView by lazy {
         findViewById<TextView>(R.id.tv_profile_name)
     }
@@ -41,20 +43,23 @@ class ProfileDetailsActivity : AppCompatActivity() {
 
 
         override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_details)
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_profile_details)
 
         //obter dados da sharedpreferences
-        var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
-        val name = sharedPref.getString("name",null)
-        val email = sharedPref.getString("email",null)
-        val number = sharedPref.getString("idNumber",null)
+            var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+            val name = sharedPref.getString("name",null)
+            val email = sharedPref.getString("email",null)
+            val number = sharedPref.getString("idNumber",null)
+            nameTextView.setText("Name: $name")
+            emailTextView.setText("Email: $email")
+            numberTextView.setText("Number: $number")
 
 
-        nameTextView.setText("Name: $name")
-        emailTextView.setText("Email: $email")
-        numberTextView.setText("Number: $number")
-
+            val isEmployee = sharedPref.getInt("isEmployee",0)
+            if(isEmployee == 1) {
+                ticketBagIcon.visibility = View.VISIBLE
+            }
 
         buttonHome.setOnClickListener {
             val intent = Intent(this,DashboardActivity::class.java)

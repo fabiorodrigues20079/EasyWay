@@ -1,8 +1,11 @@
 package com.example.easyway
 
 import android.content.Intent
+import android.media.Image
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -44,6 +47,7 @@ class DashboardActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.bar_info_iv)
     }
 
+    val ticketBagIcon: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +56,11 @@ class DashboardActivity : AppCompatActivity() {
         //Acessar os dados da sharedPreference
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
         val name = sharedPref.getString("name",null)
+        val isEmployee = sharedPref.getInt("isEmployee",0)
 
+        if(isEmployee == 1) {
+            ticketBagIcon.visibility = View.VISIBLE
+        }
         welcomeTv.setText("Welcome $name") // Welcome text
 
         buttonToday.setOnClickListener {

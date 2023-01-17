@@ -3,6 +3,7 @@ package com.example.easyway
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -21,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class BalanceActivity : AppCompatActivity() {
         // Retrofit
+        val ticketBag: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
         val baseURL = "http://10.0.2.2:5000/"
         var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
         val BalanceService = retrofit.create(UserService::class.java)
@@ -30,6 +32,7 @@ class BalanceActivity : AppCompatActivity() {
         val transactionsRv by lazy { findViewById<RecyclerView>(R.id.transaction_rv)}
 
         //Declaração de Variáveis
+        val ticketBagIcon: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
         val balanceTv: TextView by lazy {
             findViewById<TextView>(R.id.tv_balance_cash)
         }
@@ -57,6 +60,10 @@ class BalanceActivity : AppCompatActivity() {
             //Acessar os dados da SharedPreferences
             var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
             val number = sharedPref.getString("idNumber",null)
+            val isEmployee = sharedPref.getInt("isEmployee",0)
+            if(isEmployee == 1) {
+                ticketBagIcon.visibility = View.VISIBLE
+            }
             val linearLayoutManager = LinearLayoutManager(this)
             linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
             transactionsRv.layoutManager = linearLayoutManager

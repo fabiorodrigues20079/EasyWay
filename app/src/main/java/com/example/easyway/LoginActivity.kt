@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import com.example.easyway.Models.Login
 import com.example.easyway.Models.User
@@ -31,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
     val loginService = retrofit.create(LoginService::class.java)
 
     // Declaração de variáveis
+    val ticketBagIcon: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
     val email: EditText by lazy {
         findViewById<EditText>(R.id.main_email_et)
     }
@@ -81,10 +83,12 @@ class LoginActivity : AppCompatActivity() {
                         var idNumber = newUser.get("idNumber").toString()
                         idNumber = idNumber.substring(1,idNumber.length-1)
                         var pid = newUser.get("pid").toString()
+                        var isEmployee = newUser.get("isEmployee").toString()
                         putString("name",name)
                         putString("email",email)
                         putString("idNumber",idNumber)
                         putString("pid",pid)
+                        putInt("isEmployee", isEmployee.toInt())
                         apply()
                     }
 

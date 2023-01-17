@@ -51,6 +51,15 @@
                 android:src="@drawable/ic_baseline_person_24"
                 android:layout_weight="2"
                 ></ImageView>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_weight="2"
+                android:src="@drawable/ic_baseline_shopping_bag_24"
+                android:visibility="gone"
+                android:id ="@+id/ticketBag_action_bar"
+                ></ImageView>
         </LinearLayout>
     </RelativeLayout>
 
