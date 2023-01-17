@@ -32,11 +32,23 @@
             android:id="@+id/tv_balance_cash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="50dp"
+            android:text="300"
+            android:textSize="40dp"
             android:textStyle="bold"
             android:textColor="#add8e6"
             android:layout_gravity="center">
         </TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/transaction_rv"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_balance_cash"
+            tools:listitem="@layout/transaction_card"
+
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 
