@@ -107,31 +107,47 @@ class TicketActivity : AppCompatActivity() {
 
         call.enqueue(object: Callback<List<Ticket>> {
             override fun onResponse(call: Call<List<Ticket>>, response: Response<List<Ticket>>) {
-                //Adicionar à recycler view
-                val tickets = response.body()!!
-                println(tickets)
-                val adapter = TicketAdapter(tickets)
-                ticketRv.adapter = adapter
-                adapter.setOnItemClickListener(object : TicketAdapter.onItemClickListener{
-                    override fun onItemclick(position: Int) {
-                        val result = ticketService.deleteTicket(tickets.get(position).id)
-                        println(result)
-                        result.enqueue(object :Callback<List<String>>{
-                            override fun onResponse(
-                                call: Call<List<String>>,
-                                response: Response<List<String>>
-                            ) {
-                                Toast.makeText(this@TicketActivity,"Ticket Removed",Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this@TicketActivity,DashboardActivity::class.java)
-                                startActivity(intent)
-                            }
+                if(response.code()!=200)
+                {
+                    Toast.makeText(this@TicketActivity,"User has no tickets!",Toast.LENGTH_LONG).show()
+                }
 
-                            override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                                println("error")
-                            }
-                        })
-                    }
-                })
+                else {
+                    //Adicionar à recycler view
+                    val tickets = response.body()!!
+                    println(tickets)
+                    val adapter = TicketAdapter(tickets)
+                    ticketRv.adapter = adapter
+                    adapter.setOnItemClickListener(object : TicketAdapter.onItemClickListener {
+                        override fun onItemclick(position: Int) {
+                            val result = ticketService.deleteTicket(tickets.get(position).id)
+                            println(result)
+                            result.enqueue(object : Callback<List<String>> {
+                                override fun onResponse(
+                                    call: Call<List<String>>,
+                                    response: Response<List<String>>
+                                ) {
+                                    Toast.makeText(
+                                        this@TicketActivity,
+                                        "Ticket Removed",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent =
+                                        Intent(this@TicketActivity, DashboardActivity::class.java)
+                                    startActivity(intent)
+                                }
+
+                                override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                                    Toast.makeText(
+                                        this@TicketActivity,
+                                        "User has no tickets!",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            })
+                        }
+                    })
+                }
             }
 
             override fun onFailure(call: Call<List<Ticket>>, t: Throwable) {

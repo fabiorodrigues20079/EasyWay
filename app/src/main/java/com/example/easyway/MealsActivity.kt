@@ -62,7 +62,6 @@ class MealsActivity : AppCompatActivity() {
     // Layout
     val mealsRv by lazy { findViewById<RecyclerView>(R.id.meals_meals_rv)}
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
