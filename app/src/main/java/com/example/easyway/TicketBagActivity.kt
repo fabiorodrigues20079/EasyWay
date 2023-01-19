@@ -104,6 +104,8 @@ class TicketBagActivity : AppCompatActivity() {
             val intent = Intent(this@TicketBagActivity,TicketActivity::class.java)
             startActivity(intent)
         }
+
+
     }
 
     fun getTicketBag(){

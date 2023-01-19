@@ -23,7 +23,6 @@ import java.time.format.DateTimeFormatter
 
 class WeekMealsActivity : AppCompatActivity() {
 
-    val ticketBagIcon: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
     val buttonHome: ImageView by lazy {
         findViewById<ImageView>(R.id.bar_home_iv)
     }
@@ -38,6 +37,10 @@ class WeekMealsActivity : AppCompatActivity() {
 
     val buttonInfo:ImageView by lazy {
         findViewById<ImageView>(R.id.bar_info_iv)
+    }
+
+    val ticketBagIcon: ImageView by lazy {
+        findViewById<ImageView>(R.id.ticketBag_action_bar)
     }
 
     // Retrofit
@@ -84,6 +87,11 @@ class WeekMealsActivity : AppCompatActivity() {
 
         buttonInfo.setOnClickListener{
             val intent = Intent(this@WeekMealsActivity,TicketActivity::class.java)
+            startActivity(intent)
+        }
+
+        ticketBagIcon.setOnClickListener{
+            val intent = Intent(this@WeekMealsActivity,TicketBagActivity::class.java)
             startActivity(intent)
         }
     }

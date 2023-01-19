@@ -108,6 +108,11 @@ class BalanceActivity : AppCompatActivity() {
                 val intent = Intent(this@BalanceActivity,TicketActivity::class.java)
                 startActivity(intent)
             }
+
+            ticketBagIcon.setOnClickListener{
+                val intent = Intent(this@BalanceActivity,TicketBagActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         //Função para obter o salda de conta do cliente

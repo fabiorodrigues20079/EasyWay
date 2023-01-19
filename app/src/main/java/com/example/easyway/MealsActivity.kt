@@ -105,6 +105,11 @@ class MealsActivity : AppCompatActivity() {
             val intent = Intent(this@MealsActivity,TicketActivity::class.java)
             startActivity(intent)
         }
+
+        ticketBagIcon.setOnClickListener{
+            val intent = Intent(this@MealsActivity,TicketBagActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -112,34 +117,47 @@ class MealsActivity : AppCompatActivity() {
         val call = mealService.get_all_meals_by_date(tomorrow.toString())
 
 
+
         call.enqueue(object:Callback<List<Meal>>{
             override fun onResponse(call: Call<List<Meal>>, response: Response<List<Meal>>) {
                 //Adicionar à recycler view
                 val meals = response.body()!!
-                val adapter = MealAdapter(meals)
-                mealsRv.adapter = adapter
-                println(meals)
-                adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener{
-                    override fun onItemclick(position: Int) {
-                        var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
-                        val pid = sharedPref.getString("pid",null)
-                        val result = ticketService.insertTicket(meals.get(position),pid.toString())
-                        println(result)
-                        result.enqueue(object :Callback<List<String>>{
-                            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>)
-                            {
+                if (meals.isEmpty()) {
+                    Toast.makeText(
+                        this@MealsActivity,
+                        "No meals for today, hour passes 11am!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                else {
+                    val adapter = MealAdapter(meals)
+                    mealsRv.adapter = adapter
+                    println(meals)
+                    adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener {
+                        override fun onItemclick(position: Int) {
+                            var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+                            val pid = sharedPref.getString("pid", null)
+                            val result =
+                                ticketService.insertTicket(meals.get(position), pid.toString())
+                            println(result)
+                            result.enqueue(object : Callback<List<String>> {
+                                override fun onResponse(
+                                    call: Call<List<String>>,
+                                    response: Response<List<String>>
+                                ) {
 
-                                val intent = Intent(this@MealsActivity,DashboardActivity::class.java)
-                                startActivity(intent)
-                            }
+                                    val intent =
+                                        Intent(this@MealsActivity, DashboardActivity::class.java)
+                                    startActivity(intent)
+                                }
 
-                            override fun onFailure(call: Call<List<String>>, t: Throwable)
-                            {
-                                println("error")
-                            }
-                        })
-                    }
-                })
+                                override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                                    println("error")
+                                }
+                            })
+                        }
+                    })
+                }
             }
 
             override fun onFailure(call: Call<List<Meal>>, t: Throwable) {

@@ -5,6 +5,7 @@ import com.example.easyway.Models.Ticket
 import retrofit2.Call
 import retrofit2.http.*
 
+
 interface TicketService
 {
     // Método que permite dar um get a todos os tickets
@@ -19,5 +20,5 @@ interface TicketService
     fun insertTicket(@Body body: Meal,@Path("id") id:String): Call<List<String>>
 
     @DELETE("/ticket/{id}")
-    fun deleteTicket(@Path("id") id: String ): Call<List<String>>
+    fun deleteTicket(@Path("id") id: String): Call<List<String>>
 }

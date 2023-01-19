@@ -109,6 +109,13 @@ class TicketActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        ticketBagIcon.setOnClickListener{
+            val intent = Intent(this@TicketActivity,TicketBagActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
     }
 
     fun getTickets(pid:String){
