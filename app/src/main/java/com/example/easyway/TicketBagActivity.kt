@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easyway.Models.Ticket
 import com.example.easyway.Models.TicketBag
@@ -24,17 +25,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class TicketBagActivity : AppCompatActivity() {
 
-    val welcomeTv: TextView by lazy {
-        findViewById<TextView>(R.id.dashboard_welcome_tv)
-    }
 
-    val buttonToday: Button by lazy {
-        findViewById<Button>(R.id.dash_today_bt)
-    }
 
-    val buttonTomorrow: Button by lazy {
-        findViewById<Button>(R.id.dashboard_tomorrowFood_btn)
-    }
+
+
+
 
     val buttonProfileDetails: ImageView by lazy {
         findViewById<ImageView>(R.id.bar_profile_iv)
@@ -75,10 +70,7 @@ class TicketBagActivity : AppCompatActivity() {
         if(isEmployee == 1) {
             ticketBagIcon.visibility = View.VISIBLE
         }
-        buttonToday.setOnClickListener {
-            val intent = Intent(this@TicketBagActivity,MealsActivity::class.java)
-            startActivity(intent)
-        }
+
 
         buttonProfileDetails.setOnClickListener {
             val intent = Intent(this@TicketBagActivity,ProfileDetailsActivity::class.java)
@@ -95,15 +87,14 @@ class TicketBagActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        buttonTomorrow.setOnClickListener{
-            val intent = Intent(this@TicketBagActivity,WeekMealsActivity::class.java)
-            startActivity(intent)
-        }
+
 
         buttonInfo.setOnClickListener{
             val intent = Intent(this@TicketBagActivity,TicketActivity::class.java)
             startActivity(intent)
         }
+        getTicketBag()
+        ticketBagRv.layoutManager = LinearLayoutManager(this@TicketBagActivity)
     }
 
 

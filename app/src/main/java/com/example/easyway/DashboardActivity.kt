@@ -93,5 +93,10 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        ticketBagIcon.setOnClickListener {
+            val intent = Intent(this@DashboardActivity, TicketBagActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

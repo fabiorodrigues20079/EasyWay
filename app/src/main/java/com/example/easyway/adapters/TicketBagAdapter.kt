@@ -25,7 +25,7 @@ class TicketBagAdapter(private var mList : List<TicketBag>) : RecyclerView.Adapt
     }
 
     class TicketBagViewHolder(inflater: LayoutInflater, val parent: ViewGroup, listener: onItemClickListener) : RecyclerView.ViewHolder(inflater.inflate(
-        R.layout.ticket_card, parent, false)){
+        R.layout.ticket_bag_card, parent, false)){
         var priceTv = itemView?.findViewById<TextView>(R.id.ticketBag_price_tv)
         var dateTv = itemView?.findViewById<TextView>(R.id.ticketBag_card_date_tv)
         var refundBt = itemView?.findViewById<Button>(R.id.refund_card_bt)
@@ -63,7 +63,5 @@ class TicketBagAdapter(private var mList : List<TicketBag>) : RecyclerView.Adapt
         return mList.count()
     }
 
-    fun getitem(position: Int): TicketBag {
-        return mList[position]
-    }
+
 }

@@ -13,9 +13,11 @@ import com.example.easyway.Models.Meal
 import com.example.easyway.Models.Ticket
 import com.example.easyway.Services.LoginService
 import com.example.easyway.Services.MealService
+import com.example.easyway.Services.TicketBagService
 import com.example.easyway.Services.TicketService
 import com.example.easyway.adapters.MealAdapter
 import com.example.easyway.adapters.TicketAdapter
+import com.example.easyway.dtos.AddToTicketBagDTO
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,9 +63,10 @@ class TicketActivity : AppCompatActivity() {
     val baseURL = "http://10.0.2.2:5000/"
     var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
     val ticketService = retrofit.create(TicketService::class.java)
-
+    val ticketBagService = retrofit.create(TicketBagService::class.java)
 
     val ticketRv by lazy { findViewById<RecyclerView>(R.id.ticket_meals_rv)}
+    lateinit var userIdNumber: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticket)
@@ -73,6 +76,7 @@ class TicketActivity : AppCompatActivity() {
         ticketRv.layoutManager = linearLayoutManager
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
         val pid = sharedPref.getString("pid",null)
+        userIdNumber = sharedPref.getString("idNumber",null)!!
 
 
         val isEmployee = sharedPref.getInt("isEmployee",0)
@@ -132,26 +136,49 @@ class TicketActivity : AppCompatActivity() {
                             val result = ticketService.deleteTicket(tickets.get(position).id)
                             println(result)
                             result.enqueue(object : Callback<List<String>> {
-                                override fun onResponse(
-                                    call: Call<List<String>>,
-                                    response: Response<List<String>>
-                                ) {
-                                    Toast.makeText(
-                                        this@TicketActivity,
-                                        "Ticket Removed",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    val intent =
-                                        Intent(this@TicketActivity, DashboardActivity::class.java)
-                                    startActivity(intent)
+                                override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                                    if(response.code() == 200) {
+                                        Toast.makeText(
+                                            this@TicketActivity,
+                                            "Ticket canceled",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                            .show()
+                                        val intent = Intent(
+                                            this@TicketActivity,
+                                            DashboardActivity::class.java
+                                        )
+                                        startActivity(intent)
+                                    }
+                                    else{
+                                        var callAddTicketBag = ticketBagService.addTicketToTicketBag(
+                                            AddToTicketBagDTO(tickets[position].id, tickets[position].mealDate, tickets[position].price,userIdNumber)
+                                        )
+                                        callAddTicketBag.enqueue(object: Callback<String> {
+                                            override fun onResponse(call: Call<String>, response: Response<String>)
+                                            {
+                                                if (response.code() == 201)
+                                                {
+                                                    Toast.makeText(this@TicketActivity,"Ticket added to ticket bag",Toast.LENGTH_LONG).show()
+                                                }
+                                                else
+                                                {
+                                                    Toast.makeText(this@TicketActivity, "Ticket couldn't be added to ticket bag", Toast.LENGTH_LONG).show()
+                                                }
+
+                                                val intent = Intent(this@TicketActivity, DashboardActivity::class.java)
+                                                startActivity(intent)
+                                            }
+
+                                            override fun onFailure(call: Call<String>, t: Throwable) {
+                                                Toast.makeText(this@TicketActivity, "Ticket couldn't be added to ticket bag", Toast.LENGTH_LONG).show()
+                                            }
+                                        })
+                                    }
                                 }
 
                                 override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                                    Toast.makeText(
-                                        this@TicketActivity,
-                                        "User has no tickets!",
-                                        Toast.LENGTH_LONG
-                                    ).show()
+                                    Toast.makeText(this@TicketActivity, "User has no tickets!", Toast.LENGTH_LONG).show()
                                 }
                             })
                         }
