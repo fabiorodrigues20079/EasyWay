@@ -1,20 +1,20 @@
 package com.example.easyway.Services
 
+import com.example.easyway.Models.Responses.RefundTicketResponse
 import com.example.easyway.Models.TicketBag
 import com.example.easyway.dtos.AddToTicketBagDTO
+import com.example.easyway.dtos.RefundTicketDTO
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface TicketBagService {
 
     @POST("/ticketbag/add")
     fun addTicketToTicketBag(@Body addToTicketBagDTO: AddToTicketBagDTO): Call<String>
 
-    @DELETE("/ticketbag/refund")
-    fun refundUser(@Body ticketId : String, @Body newUser: String): Call<Boolean>
+    @POST("/ticketbag/refund")
+    @Headers("Content-Type: application/json")
+    fun refundUser(@Body refundTicketDTO: RefundTicketDTO): Call<RefundTicketResponse>
 
     @GET("/ticketbag/all")
     fun getTicketBagItems(): Call<List<TicketBag>>

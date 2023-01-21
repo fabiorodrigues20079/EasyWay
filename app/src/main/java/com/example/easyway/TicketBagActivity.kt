@@ -11,12 +11,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.easyway.Models.Responses.RefundTicketResponse
 import com.example.easyway.Models.Ticket
 import com.example.easyway.Models.TicketBag
 import com.example.easyway.Services.TicketBagService
 import com.example.easyway.Services.TicketService
 import com.example.easyway.adapters.TicketAdapter
 import com.example.easyway.adapters.TicketBagAdapter
+import com.example.easyway.dtos.RefundTicketDTO
+import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,10 +60,11 @@ class TicketBagActivity : AppCompatActivity() {
     val ticketBagRv : RecyclerView by lazy { findViewById<RecyclerView>(R.id.ticketbag_tickets_rv)}
 
     val baseURL = "http://10.0.2.2:5000/"
+
     var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
     val ticketBagService = retrofit.create(TicketBagService::class.java)
 
-
+    val refundEt by lazy { findViewById<EditText>(R.id.ticketBag_card_idNumber_et)}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticket_bag)
@@ -117,26 +121,25 @@ class TicketBagActivity : AppCompatActivity() {
                     ticketBagRv.adapter = adapter
                     adapter.setOnItemClickListener(object : TicketBagAdapter.onItemClickListener {
                         override fun onItemclick(position: Int, idNumber: String) {
-                            val result = ticketBagService.refundUser(ticketBags.get(position).ticketId, idNumber)
+                            val result = ticketBagService.refundUser(RefundTicketDTO(ticketBags[position].ticketId,ticketBags[position].price,ticketBags[position].toRefundIdNumber, idNumber))
                             println(result)
-                            result.enqueue(object : Callback<Boolean> {
+                            result.enqueue(object : Callback<RefundTicketResponse> {
                                 override fun onResponse(
-                                    call: Call<Boolean>,
-                                    response: Response<Boolean>
+                                    call: Call<RefundTicketResponse>,
+                                    response: Response<RefundTicketResponse>
                                 ) {
                                     Toast.makeText(
                                         this@TicketBagActivity,
                                         "Ticket refunded",
                                         Toast.LENGTH_SHORT
                                     ).show()
+
+                                    var intent = Intent(this@TicketBagActivity, DashboardActivity::class.java)
+                                    startActivity(intent)
                                 }
 
-                                override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                                    Toast.makeText(
-                                        this@TicketBagActivity,
-                                        "No tickets available",
-                                        Toast.LENGTH_LONG
-                                    ).show()
+                                override fun onFailure(call: Call<RefundTicketResponse>, t: Throwable) {
+                                    throw t
                                 }
                             })
                         }
