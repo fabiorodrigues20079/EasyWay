@@ -113,6 +113,11 @@ class TicketActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        ticketBagIcon.setOnClickListener {
+            val intent = Intent(this@TicketActivity, TicketBagActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun getTickets(pid:String){
@@ -157,7 +162,7 @@ class TicketActivity : AppCompatActivity() {
                                         callAddTicketBag.enqueue(object: Callback<String> {
                                             override fun onResponse(call: Call<String>, response: Response<String>)
                                             {
-                                                if (response.code() == 201)
+                                                if (response.code() == 201) // Verifica se a resposta teve sucesso
                                                 {
                                                     Toast.makeText(this@TicketActivity,"Ticket added to ticket bag",Toast.LENGTH_LONG).show()
                                                 }

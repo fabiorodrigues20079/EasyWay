@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter
 
 class MealsActivity : AppCompatActivity() {
 
-    val ticketBagIcon: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
+
     //Obter data de hoje para ir buscar a ementa de hoje
     @RequiresApi(Build.VERSION_CODES.O)
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -34,6 +34,7 @@ class MealsActivity : AppCompatActivity() {
     val tomorrow= LocalDateTime.now().format(formatter)
 
     //Declaraçao de Variaveis
+
     val buttonHome: ImageView by lazy {
         findViewById<ImageView>(R.id.bar_home_iv)
     }
@@ -54,6 +55,9 @@ class MealsActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.bar_info_iv)
     }
 
+    val ticketBagIcon: ImageView by lazy {
+        findViewById<ImageView>(R.id.ticketBag_action_bar)
+    }
 
     // Retrofit
     val baseURL = "http://10.0.2.2:5000/"
@@ -70,8 +74,9 @@ class MealsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_meals)
 
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+
         val isEmployee = sharedPref.getInt("isEmployee",0)
-        if(isEmployee == 1) {
+        if(isEmployee == 1) { // Verifica se é funcionário
             ticketBagIcon.visibility = View.VISIBLE
         }
         val linearLayoutManager = LinearLayoutManager(this)
@@ -103,6 +108,11 @@ class MealsActivity : AppCompatActivity() {
 
         buttonInfo.setOnClickListener{
             val intent = Intent(this@MealsActivity,TicketActivity::class.java)
+            startActivity(intent)
+        }
+
+        ticketBagIcon.setOnClickListener{
+            val intent = Intent(this@MealsActivity,TicketBagActivity::class.java)
             startActivity(intent)
         }
     }

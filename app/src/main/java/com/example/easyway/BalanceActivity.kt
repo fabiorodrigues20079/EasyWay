@@ -53,6 +53,8 @@ class BalanceActivity : AppCompatActivity() {
         }
 
 
+
+
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_balance)
@@ -90,12 +92,12 @@ class BalanceActivity : AppCompatActivity() {
 
 
             buttonProfileDetails.setOnClickListener {
-                val intent = Intent(this,ProfileDetailsActivity::class.java)
+                val intent = Intent(this@BalanceActivity,ProfileDetailsActivity::class.java)
                 startActivity(intent)
             }
 
             buttonHome.setOnClickListener {
-                val intent = Intent(this,DashboardActivity::class.java)
+                val intent = Intent(this@BalanceActivity,DashboardActivity::class.java)
                 startActivity(intent)
             }
 
@@ -106,6 +108,11 @@ class BalanceActivity : AppCompatActivity() {
 
             buttonInfo.setOnClickListener{
                 val intent = Intent(this@BalanceActivity,TicketActivity::class.java)
+                startActivity(intent)
+            }
+
+            ticketBagIcon.setOnClickListener{
+                val intent = Intent(this@BalanceActivity,TicketBagActivity::class.java)
                 startActivity(intent)
             }
         }

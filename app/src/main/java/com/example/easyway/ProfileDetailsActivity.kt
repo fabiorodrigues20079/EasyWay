@@ -55,7 +55,7 @@ class ProfileDetailsActivity : AppCompatActivity() {
             emailTextView.setText("Email: $email")
             numberTextView.setText("Number: $number")
 
-
+            // Vai às sharedPreferences verificar se é funcionário
             val isEmployee = sharedPref.getInt("isEmployee",0)
             if(isEmployee == 1) {
                 ticketBagIcon.visibility = View.VISIBLE
@@ -80,6 +80,11 @@ class ProfileDetailsActivity : AppCompatActivity() {
             val intent = Intent(this@ProfileDetailsActivity,TicketActivity::class.java)
             startActivity(intent)
         }
+
+            ticketBagIcon.setOnClickListener {
+                val intent = Intent(this@ProfileDetailsActivity, TicketBagActivity::class.java)
+                startActivity(intent)
+            }
 
 
     }

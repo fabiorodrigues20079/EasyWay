@@ -47,7 +47,8 @@ class DashboardActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.bar_info_iv)
     }
 
-    val ticketBagIcon: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
+    val ticketBagIcon: ImageView by lazy {
+        findViewById<ImageView>(R.id.ticketBag_action_bar) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,18 +59,18 @@ class DashboardActivity : AppCompatActivity() {
         val name = sharedPref.getString("name",null)
         val isEmployee = sharedPref.getInt("isEmployee",0)
 
-        if(isEmployee == 1) {
+        if(isEmployee == 1) { // Se é funcionário, botão da ticket bag aparece
             ticketBagIcon.visibility = View.VISIBLE
         }
         welcomeTv.setText("Welcome $name") // Welcome text
 
         buttonToday.setOnClickListener {
-            val intent = Intent(this,MealsActivity::class.java)
+            val intent = Intent(this@DashboardActivity,MealsActivity::class.java)
             startActivity(intent)
         }
 
         buttonProfileDetails.setOnClickListener {
-            val intent = Intent(this,ProfileDetailsActivity::class.java)
+            val intent = Intent(this@DashboardActivity,ProfileDetailsActivity::class.java)
             startActivity(intent)
         }
 

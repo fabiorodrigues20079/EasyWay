@@ -81,6 +81,7 @@ class LoginActivity : AppCompatActivity() {
 
     //Funcao para fazer o login
     fun login(email:String,password:String){
+        // Vai ao service de login buscar o método login
         val log = loginService.Login(Login(email,password))
 
         log.enqueue(object :Callback<List<User>>{

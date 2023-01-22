@@ -86,6 +86,11 @@ class WeekMealsActivity : AppCompatActivity() {
             val intent = Intent(this@WeekMealsActivity,TicketActivity::class.java)
             startActivity(intent)
         }
+
+        ticketBagIcon.setOnClickListener {
+            val intent = Intent(this@WeekMealsActivity, TicketBagActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun getWeekMeals(){

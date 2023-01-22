@@ -28,12 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class TicketBagActivity : AppCompatActivity() {
 
-
-
-
-
-
-
     val buttonProfileDetails: ImageView by lazy {
         findViewById<ImageView>(R.id.bar_profile_iv)
     }
@@ -52,13 +46,13 @@ class TicketBagActivity : AppCompatActivity() {
 
     val buttonInfo: ImageView by lazy {
         findViewById<ImageView>(R.id.bar_info_iv)
-
     }
 
     val ticketBagIcon: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
 
     val ticketBagRv : RecyclerView by lazy { findViewById<RecyclerView>(R.id.ticketbag_tickets_rv)}
 
+    // Retrofit
     val baseURL = "http://10.0.2.2:5000/"
 
     var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
@@ -71,10 +65,14 @@ class TicketBagActivity : AppCompatActivity() {
 
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
         val isEmployee = sharedPref.getInt("isEmployee",0)
-        if(isEmployee == 1) {
+        if(isEmployee == 1) { // Se for funcionário, o símbolo da ticket bag aparece
             ticketBagIcon.visibility = View.VISIBLE
         }
 
+        buttonHome.setOnClickListener {
+            val intent = Intent(this@TicketBagActivity,DashboardActivity::class.java)
+            startActivity(intent)
+        }
 
         buttonProfileDetails.setOnClickListener {
             val intent = Intent(this@TicketBagActivity,ProfileDetailsActivity::class.java)
@@ -91,17 +89,17 @@ class TicketBagActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-
         buttonInfo.setOnClickListener{
             val intent = Intent(this@TicketBagActivity,TicketActivity::class.java)
             startActivity(intent)
         }
+
         getTicketBag()
+
         ticketBagRv.layoutManager = LinearLayoutManager(this@TicketBagActivity)
     }
 
-
+    // Função responsável por obter todos os itens (tickets) da ticket Bag
     fun getTicketBag(){
         val call = ticketBagService.getTicketBagItems()
 
