@@ -19,29 +19,29 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_actionBar"
         android:layout_marginTop="30dp"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/Cash"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_gravity="center">
-        </TextView>
+            android:textColor="#043A54"
+            android:textSize="40dp"
+            android:textStyle="bold"></TextView>
+
         <TextView
             android:id="@+id/tv_balance_cash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="300"
+            android:layout_gravity="center"
+            android:text="@string/_300"
+            android:textColor="#032F3D"
             android:textSize="40dp"
-            android:textStyle="bold"
-            android:textColor="#add8e6"
-            android:layout_gravity="center">
-        </TextView>
+            android:textStyle="bold"></TextView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
             android:id="@+id/transaction_rv"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_balance_cash"
             tools:listitem="@layout/transaction_card"

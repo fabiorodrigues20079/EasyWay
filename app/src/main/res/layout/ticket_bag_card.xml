@@ -1,102 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    app:cardElevation="10dp"
-    app:cardCornerRadius="20dp"
     android:layout_marginTop="10dp"
+    android:backgroundTintMode="add"
+    app:cardBackgroundColor="#C7390D"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp"
     app:cardMaxElevation="12dp"
-    app:cardPreventCornerOverlap="true"
-    app:cardBackgroundColor="#fffffc"
 
-    >
+    app:cardPreventCornerOverlap="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:paddingBottom="30dp"
-        >
+        android:paddingBottom="30dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingBottom="20dp"
             android:layout_marginStart="30dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
             <ImageView
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:src="@drawable/transaction_logo"
                 android:layout_marginTop="40dp"
-                >
+                android:src="@drawable/transaction_logo">
 
 
             </ImageView>
 
             <TextView
+                android:id="@+id/ticketBag_price_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2,75€"
-                android:id="@+id/ticketBag_price_tv"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
-                ></TextView>
+                android:text="2,75€"
+                android:textSize="24sp"
+                android:textColor="@color/white"></TextView>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
-            >
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/ticketBag_number_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Ticket #"
-                android:textColor="@color/black"
+                android:text="Ticket"
+                android:textColor="@color/white"
                 android:textSize="24sp">
 
 
             </TextView>
+
             <TextView
+                android:id="@+id/ticketBag_card_date_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textSize="17sp"
-                android:textColor="@color/black"
-                android:text="Monday, xxxx xxxx xxxx"
-                android:id="@+id/ticketBag_card_date_tv"
-                >
+                android:text="Monday, 24 fevereiro de 2023"
+                android:textColor="@color/white"
+                android:textSize="17sp">
 
             </TextView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <EditText
-                    android:layout_width="160dp"
                     android:id="@+id/ticketBag_card_idNumber_et"
-                    android:layout_height="50dp"
+                    android:layout_width="160dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/edit_text_background"
                     android:hint="Insert user number"
-                    android:textColorHint="@color/black"
-                    android:background="@drawable/edit_text_background">
+                    android:textColorHint="@color/black">
 
                 </EditText>
+
                 <Button
                     android:id="@+id/refund_card_bt"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Refund"
+                    android:layout_height="55dp"
                     android:layout_marginStart="5dp"
-                    android:textColor="@color/black"
-                    android:backgroundTint="#add8ef"
-                    ></Button>
+                    android:backgroundTint="#0673AC"
+                    android:text="@string/refund"
+                    android:textColor="@color/black"></Button>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

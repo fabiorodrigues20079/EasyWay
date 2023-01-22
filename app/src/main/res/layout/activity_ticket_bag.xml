@@ -10,15 +10,14 @@
     <include layout="@layout/action_bar" android:id="@+id/ticketbag_action_bar"></include>
 
     <TextView
+        android:id="@+id/ticketbag_title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ticketbag_title_tv"
         android:layout_marginTop="100dp"
-        android:text="Ticket Bag: "
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        >
+        android:text="@string/ticket_bag"
+        android:textColor="#000000"
+        android:textSize="35sp"
+        android:textStyle="bold|italic">
 
     </TextView>
 

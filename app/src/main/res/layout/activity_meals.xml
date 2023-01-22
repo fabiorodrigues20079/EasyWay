@@ -4,32 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MealsActivity"
-    android:background="#ffffff">
+    android:background="#F8F5F5"
+    tools:context=".MealsActivity">
 
-    <include layout="@layout/action_bar" android:id="@+id/meals_action_bar"></include>
+    <include
+        android:id="@+id/meals_action_bar"
+        layout="@layout/action_bar"></include>
 
     <TextView
+        android:id="@+id/meals_meals_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/meals_meals_tv"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80sp"
         android:text="@string/Book_Meal_today"
-        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="30sp"
-        >
+        android:textStyle="bold">
 
     </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
         android:id="@+id/meals_meals_rv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/meals_meals_tv"
-        tools:listitem="@layout/meal_card"
+        android:background="#FFFFFF"
 
-        >
+        tools:listitem="@layout/meal_card">
 
     </androidx.recyclerview.widget.RecyclerView>
 

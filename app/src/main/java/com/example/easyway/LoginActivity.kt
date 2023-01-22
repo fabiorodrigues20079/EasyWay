@@ -26,20 +26,15 @@ import com.example.easyway.Services.MealService
 import com.example.easyway.Services.TicketService
 import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.internal.NoOpContinuation.context
 import kotlinx.coroutines.launch
 import retrofit2.Call
-
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.coroutines.jvm.internal.CompletedContinuation.context
+
 
 class LoginActivity : AppCompatActivity() {
-
-
 
 
 
@@ -132,7 +127,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
     
-    fun isNetWorkAvailable():Boolean
+     /*fun isNetWorkAvailable():Boolean
     {
         var info : NetworkInfo?= null
        val connectivity: ConnectivityManager = this@LoginActivity.getSystemService(Service.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -147,8 +142,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-    }
-
-
+    }*/
 }
 

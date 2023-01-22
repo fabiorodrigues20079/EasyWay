@@ -17,57 +17,60 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        app:cardBackgroundColor="#add8ef"
-        app:cardMaxElevation="12dp"
-        app:cardElevation="10dp"
+        app:cardBackgroundColor="#089BE9"
         app:cardCornerRadius="12dp"
-        >
+        app:cardElevation="10dp"
+        app:cardMaxElevation="12dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="123dp"
+                android:layout_height="112dp"
                 android:layout_margin="35dp"
-                android:src="@drawable/user"
-                ></ImageView>
+                android:src="@drawable/fotoperfil"></ImageView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_profile_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name: Adolfo Dias"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"></TextView>
+                    android:fontFamily="@font/andika"
+                    android:text="@string/name_adolfo_dias"
+                    android:textColor="@color/black"
+                    android:textSize="25dp"
+                    android:textStyle="bold"></TextView>
+
                 <TextView
                     android:id="@+id/tv_profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email: a1234@alunos.ipca.pt"
-                    android:textSize="18sp"
+                    android:fontFamily="@font/andika"
+                    android:text="@string/email_a1234_alunos_ipca_pt"
                     android:textColor="@color/black"
-                    >
+                    android:textSize="20sp">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/tv_profile_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Number: 1234"
-                    android:textSize="18sp"
+                    android:fontFamily="@font/andika"
+                    android:text="@string/number_1234"
                     android:textColor="@color/black"
-                    ></TextView>
+                    android:textSize="20sp"></TextView>
             </LinearLayout>
 
         </LinearLayout>
-
 
 
     </androidx.cardview.widget.CardView>
@@ -75,17 +78,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        >
-
+        android:orientation="horizontal">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            android:layoutDirection="rtl">
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
 
         </LinearLayout>
 

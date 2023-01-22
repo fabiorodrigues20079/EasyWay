@@ -1,101 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
 
-    <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="10dp"
+    app:cardBackgroundColor="#E03D0A"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp"
+    app:cardMaxElevation="12dp"
+    app:cardPreventCornerOverlap="true"
+
+    >
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp">
 
-        app:cardElevation="10dp"
-        app:cardCornerRadius="20dp"
-        android:layout_marginTop="10dp"
-        app:cardMaxElevation="12dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardBackgroundColor="#fffffc"
-
-        >
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingBottom="30dp"
-            >
+            android:layout_marginStart="30dp"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingBottom="20dp"
-                android:layout_marginStart="30dp"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:src="@drawable/ttic2"
-                    android:layout_marginTop="40dp"
-                    >
-
-
-                </ImageView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2,75€"
-                    android:id="@+id/ticket_price_tv"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    ></TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginStart="20dp"
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="65sp"
                 android:layout_marginTop="40dp"
-                >
-                <TextView
-                    android:id="@+id/ticket_card_title_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Refeicao"
-                    android:textColor="@color/black"
-                    android:textSize="24sp">
+                android:src="@drawable/ttic2">
 
 
-                </TextView>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"
-                    android:text="Monday, xxxx xxxx xxxx"
-                    android:id="@+id/ticket_card_date_tv"
-                    >
+            </ImageView>
 
-                </TextView>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/tickets_cancel"
-                        android:textColor="@color/black"
-                        android:backgroundTint="#add8ef"
-                        android:id="@+id/cancel_card_bt"
-
-                        ></Button>
-                </LinearLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/ticket_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="2,75€"
+                android:textColor="@color/white"
+                android:textSize="25sp"></TextView>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
 
-    </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/ticket_card_title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Ticket"
+                android:textColor="@color/white"
+                android:textSize="30sp">
+
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/ticket_card_date_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/monday_4_mar_o_de_2023"
+                android:textColor="@color/white"
+                android:textSize="17sp">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/cancel_card_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#039BE5"
+                    android:text="@string/tickets_cancel"
+
+                    android:textColor="@color/white"
+
+                    ></Button>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
 
 
