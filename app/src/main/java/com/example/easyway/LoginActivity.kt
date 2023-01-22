@@ -1,26 +1,45 @@
 package com.example.easyway
 
+import android.app.Service
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings.Global
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.getSystemService
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import com.example.easyway.Dao.PersonDao
+import com.example.easyway.Entities.Person
+import com.example.easyway.Entities.UserInfo
 import com.example.easyway.Models.Login
 import com.example.easyway.Models.User
 import com.example.easyway.Services.LoginService
 import com.example.easyway.Services.MealService
 import com.example.easyway.Services.TicketService
 import com.google.gson.JsonParser
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.internal.NoOpContinuation.context
+import kotlinx.coroutines.launch
 import retrofit2.Call
 
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 
 class LoginActivity : AppCompatActivity() {
+
+
 
 
 
@@ -49,13 +68,20 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        
 
+        var IPCAdb = IPCADatabase.getDataBase(this@LoginActivity)
 
         button.setOnClickListener{
             login(email.text.toString(),password.text.toString())
         }
 
 
+       lifecycleScope.launch(Dispatchers.IO)
+       {
+           val person = IPCAdb.userInfoDao().getUserInfo()
+           println(person)
+       }
     }
 
     //Funcao para fazer o login
@@ -95,7 +121,8 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this@LoginActivity,DashboardActivity::class.java)
                     startActivity(intent)
                 }
-                else{
+                else
+                {
                     Toast.makeText(this@LoginActivity,"Incorrect Credentials",Toast.LENGTH_LONG).show()
                 }
             }
@@ -104,5 +131,24 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
+    
+    fun isNetWorkAvailable():Boolean
+    {
+        var info : NetworkInfo?= null
+       val connectivity: ConnectivityManager = this@LoginActivity.getSystemService(Service.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if(connectivity!=null)
+        {
+            info = connectivity!!.activeNetworkInfo
+
+            if(info!=null)
+            {
+                return info.state==NetworkInfo.State.CONNECTED
+            }
+        }
+
+    }
+
+
 }
 
