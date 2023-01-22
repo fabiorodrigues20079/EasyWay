@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -25,6 +26,7 @@ import java.time.format.DateTimeFormatter
 
 class MealsActivity : AppCompatActivity() {
 
+    val ticketBagIcon: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
     //Obter data de hoje para ir buscar a ementa de hoje
     @RequiresApi(Build.VERSION_CODES.O)
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -62,11 +64,16 @@ class MealsActivity : AppCompatActivity() {
     // Layout
     val mealsRv by lazy { findViewById<RecyclerView>(R.id.meals_meals_rv)}
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meals)
+
+        var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+        val isEmployee = sharedPref.getInt("isEmployee",0)
+        if(isEmployee == 1) {
+            ticketBagIcon.visibility = View.VISIBLE
+        }
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         mealsRv.layoutManager = linearLayoutManager
@@ -108,31 +115,41 @@ class MealsActivity : AppCompatActivity() {
         call.enqueue(object:Callback<List<Meal>>{
             override fun onResponse(call: Call<List<Meal>>, response: Response<List<Meal>>) {
                 //Adicionar à recycler view
-                val meals = response.body()!!
-                val adapter = MealAdapter(meals)
-                mealsRv.adapter = adapter
-                println(meals)
-                adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener{
-                    override fun onItemclick(position: Int) {
-                        var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
-                        val pid = sharedPref.getString("pid",null)
-                        val result = ticketService.insertTicket(meals.get(position),pid.toString())
-                        println(result)
-                        result.enqueue(object :Callback<List<String>>{
-                            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>)
-                            {
 
-                                val intent = Intent(this@MealsActivity,DashboardActivity::class.java)
-                                startActivity(intent)
-                            }
 
-                            override fun onFailure(call: Call<List<String>>, t: Throwable)
-                            {
-                                println("error")
-                            }
-                        })
-                    }
-                })
+                if (response.code() == 404) {
+                    Toast.makeText(this@MealsActivity, "No meals for today", Toast.LENGTH_LONG)
+                        .show()
+                } else {
+                    val meals = response.body()!!
+                    val adapter = MealAdapter(meals)
+                    mealsRv.adapter = adapter
+                    println(meals)
+                    adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener {
+                        override fun onItemclick(position: Int) {
+                            var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+                            val pid = sharedPref.getString("pid", null)
+                            val result =
+                                ticketService.insertTicket(meals.get(position), pid.toString())
+                            println(result)
+                            result.enqueue(object : Callback<List<String>> {
+                                override fun onResponse(
+                                    call: Call<List<String>>,
+                                    response: Response<List<String>>
+                                ) {
+
+                                    val intent =
+                                        Intent(this@MealsActivity, DashboardActivity::class.java)
+                                    startActivity(intent)
+                                }
+
+                                override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                                    println("error")
+                                }
+                            })
+                        }
+                    })
+                }
             }
 
             override fun onFailure(call: Call<List<Meal>>, t: Throwable) {

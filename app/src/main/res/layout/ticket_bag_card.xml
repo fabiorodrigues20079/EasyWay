@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
     android:layout_marginTop="10dp"
-    app:cardBackgroundColor="#E03D0A"
+    android:backgroundTintMode="add"
+    app:cardBackgroundColor="#C7390D"
     app:cardCornerRadius="20dp"
     app:cardElevation="10dp"
     app:cardMaxElevation="12dp"
-    app:cardPreventCornerOverlap="true"
 
-    >
+    app:cardPreventCornerOverlap="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,21 +28,21 @@
 
             <ImageView
                 android:layout_width="75dp"
-                android:layout_height="65sp"
+                android:layout_height="75dp"
                 android:layout_marginTop="40dp"
-                android:src="@drawable/ttic2">
+                android:src="@drawable/transaction_logo">
 
 
             </ImageView>
 
             <TextView
-                android:id="@+id/ticket_price_tv"
+                android:id="@+id/ticketBag_price_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="2,75€"
-                android:textColor="@color/white"
-                android:textSize="25sp"></TextView>
+                android:textSize="24sp"
+                android:textColor="@color/white"></TextView>
         </LinearLayout>
 
         <LinearLayout
@@ -55,23 +53,23 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/ticket_card_title_tv"
+                android:id="@+id/ticketBag_number_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Ticket"
                 android:textColor="@color/white"
-                android:textSize="30sp">
+                android:textSize="24sp">
 
 
             </TextView>
 
             <TextView
-                android:id="@+id/ticket_card_date_tv"
+                android:id="@+id/ticketBag_card_date_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/monday_4_mar_o_de_2023"
+                android:text="Monday, 24 fevereiro de 2023"
                 android:textColor="@color/white"
                 android:textSize="17sp">
 
@@ -82,21 +80,27 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <EditText
+                    android:id="@+id/ticketBag_card_idNumber_et"
+                    android:layout_width="160dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="Insert user number"
+                    android:textColorHint="@color/black">
+
+                </EditText>
+
                 <Button
-                    android:id="@+id/cancel_card_bt"
+                    android:id="@+id/refund_card_bt"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="#039BE5"
-                    android:text="@string/tickets_cancel"
-
-                    android:textColor="@color/white"
-
-                    ></Button>
+                    android:layout_height="55dp"
+                    android:layout_marginStart="5dp"
+                    android:backgroundTint="#0673AC"
+                    android:text="@string/refund"
+                    android:textColor="@color/black"></Button>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
 
 </androidx.cardview.widget.CardView>
-
-

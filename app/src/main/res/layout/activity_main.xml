@@ -3,59 +3,65 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:background="@color/white"
-    >
+    android:layout_height="1000dp"
+    android:background="@drawable/background"
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/main_user_imgv"
         android:layout_width="match_parent"
-        android:layout_height="203dp"
-        android:layout_centerHorizontal="true"
+        android:layout_height="350dp"
         android:layout_marginTop="65dp"
-        android:src="@drawable/img_1">
+        android:adjustViewBounds="false"
+        android:src="@drawable/easywaylogo"
+        android:visibility="visible">
 
 
     </ImageView>
+
     <EditText
         android:id="@+id/main_email_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/main_user_imgv"
         android:layout_centerHorizontal="true"
-        android:inputType="textEmailAddress"
-        android:hint="Email"
-        android:textColorHint="#666666"
-        android:textSize="25sp"
-        android:textColor="@color/black"
         android:layout_marginTop="50dp"
+        android:background="@drawable/et_background_login"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:textColor="@color/purple_500"
 
-        ></EditText>
+        android:textColorHint="#666666"
+        android:textSize="16sp"></EditText>
+
     <EditText
         android:id="@+id/main_password_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:textColorHint="#666666"
-        android:textColor="@color/black"
         android:layout_below="@id/main_email_et"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/et_background_login"
         android:hint="Password"
         android:inputType="textPassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"></EditText>
+        android:minHeight="48dp"
+        android:textColor="@color/black"
+        android:textColorHint="#666666"
+        android:textSize="16sp"></EditText>
 
     <Button
         android:id="@+id/main_login_btn"
-        android:layout_width="125dp"
-        android:layout_height="55dp"
-        android:text ="Login"
-        android:textSize="25sp"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
         android:layout_below="@id/main_password_et"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
+        android:background="@drawable/et_background_login"
         android:backgroundTint="#b2e9f0"
         android:fontFamily="sans-serif-condensed"
-        android:textColor="#ffffff"></Button>
+        android:text="@string/login"
+        android:textColor="#ffffff"
+        android:textSize="25sp"></Button>
 
 </RelativeLayout>

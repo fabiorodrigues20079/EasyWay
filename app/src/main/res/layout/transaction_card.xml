@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
     android:layout_marginTop="10dp"
-    app:cardBackgroundColor="#E03D0A"
+    app:cardBackgroundColor="#A72F09"
     app:cardCornerRadius="20dp"
     app:cardElevation="10dp"
     app:cardMaxElevation="12dp"
@@ -30,21 +29,9 @@
 
             <ImageView
                 android:layout_width="75dp"
-                android:layout_height="65sp"
+                android:layout_height="40dp"
                 android:layout_marginTop="40dp"
-                android:src="@drawable/ttic2">
-
-
-            </ImageView>
-
-            <TextView
-                android:id="@+id/ticket_price_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="2,75€"
-                android:textColor="@color/white"
-                android:textSize="25sp"></TextView>
+                android:src="@drawable/transaction_logo"></ImageView>
         </LinearLayout>
 
         <LinearLayout
@@ -55,48 +42,28 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/ticket_card_title_tv"
+                android:id="@+id/transaction_card_title_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Ticket"
+                android:text="@string/Transaction"
                 android:textColor="@color/white"
-                android:textSize="30sp">
+                android:textSize="24sp">
 
 
             </TextView>
 
             <TextView
-                android:id="@+id/ticket_card_date_tv"
+                android:id="@+id/transaction_card_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/monday_4_mar_o_de_2023"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/last_balance"
                 android:textColor="@color/white"
-                android:textSize="17sp">
-
-            </TextView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/cancel_card_bt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="#039BE5"
-                    android:text="@string/tickets_cancel"
-
-                    android:textColor="@color/white"
-
-                    ></Button>
-            </LinearLayout>
+                android:textSize="17sp"></TextView>
         </LinearLayout>
     </LinearLayout>
 
 
 </androidx.cardview.widget.CardView>
-
-

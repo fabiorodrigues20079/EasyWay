@@ -4,86 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashboardActivity"
-    android:background="#ffffff">
+    android:background="#010419"
+    tools:context=".DashboardActivity">
 
 
-    <include layout="@layout/action_bar" ></include>
+    <include layout="@layout/action_bar"></include>
+
     <TextView
         android:id="@+id/dashboard_welcome_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome, XXXXX"
-        android:textSize="35sp"
         android:layout_marginTop="100dp"
-        android:textColor="@color/black"
-        >
+        android:text="Welcome, Fábio!"
+        android:textColor="#F4511E"
+        android:layout_centerHorizontal="true"
+        android:textSize="34sp">
 
     </TextView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/dashboard_today_cv"
-        app:cardBackgroundColor="#fffffc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/dashboard_welcome_tv"
-        android:layout_marginTop="20dp"
-        app:cardElevation="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_margin="20dp"
+        app:cardBackgroundColor="#FAE8E1E1"
         app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
+        app:cardMaxElevation="10dp"
+        app:cardPreventCornerOverlap="true">
 
-        app:cardMaxElevation="12dp"
-        app:cardPreventCornerOverlap="true"
-        >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:background="@drawable/et_background_login">
+
             <TextView
                 android:id="@+id/dashboard_today_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Book_Meal_today"
-                android:textSize="20sp"
                 android:layout_marginStart="20dp"
+                android:text="@string/Book_Meal_today"
                 android:textColor="@color/black"
+                android:textSize="20sp"
                 android:textStyle="bold"></TextView>
+
             <LinearLayout
 
-                android:layout_below="@id/dashboard_today_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_below="@id/dashboard_today_tv"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#B21B1B"
                 android:orientation="horizontal"
-                android:paddingBottom="50dp"
-                >
+                android:paddingBottom="50dp">
+
                 <ImageView
                     android:id="@+id/dashboard_today_iv"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/food1"></ImageView>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
-                    >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/dashboard_todayFood_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text= "@string/Todays_meals"
+                        android:fontFamily="serif-monospace"
+                        android:text="@string/Todays_meals"
+                        android:textColor="#000000"
                         android:textSize="20sp"
-                        android:textColor="@color/black"></TextView>
+                        android:textStyle="bold"></TextView>
+
                     <Button
                         android:id="@+id/dash_today_bt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#add8ef"
-                        android:textColor="@color/black"
-                        android:text="@string/Buy_now"></Button>
+                        android:backgroundTint="#F4511E"
+                        android:text="@string/Buy_now"
+                        android:textColor="@color/black"></Button>
 
 
                 </LinearLayout>
@@ -94,54 +102,58 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/dashboard_tomorrow_cv"
-        app:cardBackgroundColor="#fffffc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/dashboard_today_cv"
         android:layout_marginTop="20dp"
-        app:cardElevation="10dp"
+        app:cardBackgroundColor="#fffffc"
         app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
+        android:layout_margin="20dp"
 
         app:cardMaxElevation="12dp"
-        app:cardPreventCornerOverlap="true"
-        >
+        app:cardPreventCornerOverlap="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="177dp"
             android:layout_marginTop="30dp">
+
             <TextView
                 android:id="@+id/dashboard_tomorrow_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:text="@string/Book_Week_meals"
-                android:textSize="20sp"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginStart="20dp"></TextView>
+                android:textSize="20sp"
+                android:textStyle="bold"></TextView>
+
             <LinearLayout
 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_below="@id/dashboard_tomorrow_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:paddingBottom="50dp"
 
 
-
                 >
+
                 <ImageView
                     android:id="@+id/dashboard_tomorrow_iv"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="108dp"
+                    android:layout_height="101dp"
                     android:src="@drawable/food2"></ImageView>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
+                    android:orientation="vertical"
 
                     >
 
@@ -149,16 +161,19 @@
                         android:id="@+id/dashboard_tomorrowFood_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text= "@string/Week_meals"
-                        android:textSize="20sp"
-                        android:textColor="@color/black"></TextView>
+                        android:fontFamily="monospace"
+                        android:text="@string/Week_meals"
+                        android:textColor="#000000"
+                        android:textSize="17sp"
+                        android:textStyle="bold"></TextView>
+
                     <Button
                         android:id="@+id/dashboard_tomorrowFood_btn"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#add8ef"
-                        android:textColor="@color/black"
-                        android:text="@string/Buy_now"></Button>
+                        android:layout_height="55dp"
+                        android:backgroundTint="#F4511E"
+                        android:text="@string/Buy_now"
+                        android:textColor="@color/black"></Button>
 
 
                 </LinearLayout>
@@ -166,4 +181,14 @@
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dashboard_tomorrow_cv"
+        android:text="\u00A9CopyRight EasyWay"
+        android:textAlignment="center"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
 </RelativeLayout>

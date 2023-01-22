@@ -8,5 +8,16 @@
     <string name="Cash">Cash</string>
     <string name="My_tickets">My tickets</string>
     <string name="tickets_cancel">Cancel</string>
+    <string name="Transaction">Transaction</string>
+    <string name="_300">300</string>
+    <string name="login">Login</string>
+    <string name="name_adolfo_dias">Name: Adolfo Dias</string>
+    <string name="email_a1234_alunos_ipca_pt">Email: a1234@alunos.ipca.pt</string>
+    <string name="number_1234">Number: 1234</string>
+    <string name="ticket_bag">Ticket Bag</string>
+    <string name="buy">Buy</string>
+    <string name="refund">Refund</string>
+    <string name="monday_4_mar_o_de_2023">Monday, 4 março de 2023</string>
+    <string name="last_balance">Last balance:</string>
 
 </resources>
