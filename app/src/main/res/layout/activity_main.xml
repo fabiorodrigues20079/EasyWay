@@ -13,7 +13,7 @@
         android:layout_height="350dp"
         android:layout_marginTop="65dp"
         android:adjustViewBounds="false"
-        android:src="@drawable/easyway"
+        android:src="@drawable/easywaylogo"
         android:visibility="visible">
 
 
@@ -29,7 +29,7 @@
         android:background="@drawable/et_background_login"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:minHeight="37dp"
+        android:minHeight="48dp"
         android:textColor="@color/purple_500"
 
         android:textColorHint="#666666"
@@ -45,7 +45,7 @@
         android:background="@drawable/et_background_login"
         android:hint="Password"
         android:inputType="textPassword"
-        android:minHeight="37dp"
+        android:minHeight="48dp"
         android:textColor="@color/black"
         android:textColorHint="#666666"
         android:textSize="16sp"></EditText>
