@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BalanceActivity"
-    android:background="@color/white"
+    android:background="@color/black"
     >
 
     <include android:id="@+id/profile_actionBar" layout= "@layout/action_bar"></include>
 
     <LinearLayout
-        android:id="@+id/firts_balance_ly"
+        android:id="@+id/first_balance_ly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:background="#000000"
         app:circularflow_defaultRadius="30dp"
         app:layout_constraintTop_toBottomOf="@+id/profile_actionBar"
         android:layout_marginTop="30dp"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/Cash"
-            android:textColor="#043A54"
+            android:textColor="#f4511e"
             android:textSize="40dp"
             android:textStyle="bold"></TextView>
 
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/_300"
-            android:textColor="#032F3D"
+            android:textColor="#f4511e"
             android:textSize="40dp"
             android:textStyle="bold"></TextView>
 
@@ -45,7 +45,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_balance_cash"
             tools:listitem="@layout/transaction_card"
-
             >
 
         </androidx.recyclerview.widget.RecyclerView>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WeekMealsActivity"
-    android:background="@color/white"
+    android:background="@color/black"
     >
 
     <include layout="@layout/action_bar" android:id="@+id/meals_action_bar"></include>
@@ -17,7 +17,7 @@
         android:layout_marginTop="100dp"
         android:text="@string/Book_Week_meals"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="#F4511E"
         android:textSize="30sp"
         />
 
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/meals_meals_tv"
         tools:listitem="@layout/meal_card"
-        tools:ignore="NotSibling">
+        android:background="@color/black">
 
     </androidx.recyclerview.widget.RecyclerView>
 

@@ -170,6 +170,7 @@ class MealsActivity : AppCompatActivity() {
                         .show()
                 } else {
                     val meals = response.body()!!
+                    auxMeals(meals)
 
                 }
             }

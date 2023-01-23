@@ -19,7 +19,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#1951A3"
+        android:background="#ffffff"
         android:orientation="horizontal"
         android:paddingBottom="30dp">
 
@@ -89,7 +89,7 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="#F4511E"
                     android:text="@string/buy"
-                    android:textColor="@color/black"></Button>
+                    android:textColor="@color/white"></Button>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

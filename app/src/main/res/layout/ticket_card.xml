@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:paddingBottom="30dp">
+        android:paddingBottom="30dp"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -43,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="2,75€"
-                android:textColor="@color/white"
+                android:textColor="#f4511e"
                 android:textSize="25sp"></TextView>
         </LinearLayout>
 
@@ -60,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Ticket"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="30sp">
 
 
@@ -72,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/monday_4_mar_o_de_2023"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="17sp">
 
             </TextView>
@@ -86,7 +87,7 @@
                     android:id="@+id/cancel_card_bt"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:backgroundTint="#039BE5"
+                    android:backgroundTint="#f4511e"
                     android:text="@string/tickets_cancel"
 
                     android:textColor="@color/white"

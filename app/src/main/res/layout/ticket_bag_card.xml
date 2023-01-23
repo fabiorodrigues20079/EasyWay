@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:paddingBottom="30dp">
+        android:paddingBottom="30dp"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -30,7 +31,7 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_marginTop="40dp"
-                android:src="@drawable/transaction_logo">
+                android:src="@drawable/ttic2">
 
 
             </ImageView>
@@ -42,7 +43,7 @@
                 android:layout_gravity="center"
                 android:text="2,75€"
                 android:textSize="24sp"
-                android:textColor="@color/white"></TextView>
+                android:textColor="#f4511e"></TextView>
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Ticket"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="24sp">
 
 
@@ -70,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Monday, 24 fevereiro de 2023"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="17sp">
 
             </TextView>
@@ -95,9 +96,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="55dp"
                     android:layout_marginStart="5dp"
-                    android:backgroundTint="#0673AC"
                     android:text="@string/refund"
-                    android:textColor="@color/black"></Button>
+                    android:backgroundTint="#F4511E"
+                    android:textColor="@color/white"></Button>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

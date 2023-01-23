@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TicketBagActivity"
-    android:background="#ffffff">
+    android:background="#000000">
 
     <include layout="@layout/action_bar" android:id="@+id/ticketbag_action_bar"></include>
 
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="@string/ticket_bag"
-        android:textColor="#000000"
+        android:textColor="#F4511E"
         android:textSize="35sp"
         android:textStyle="bold|italic">
 

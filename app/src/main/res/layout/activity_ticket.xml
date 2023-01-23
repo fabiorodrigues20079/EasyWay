@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TicketActivity"
-    android:background="@color/white">
+    android:background="@color/black">
 
     <include layout="@layout/action_bar" android:id="@+id/ticket_action_bar"></include>
 
@@ -15,7 +15,7 @@
         android:layout_marginTop="100dp"
         android:text="@string/My_tickets"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="#f4511e"
         android:textSize="30sp"
         >
 
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ticket_meals_tv"
         tools:listitem="@layout/ticket_card"
-
+        android:background="@color/black"
         >
 
     </androidx.recyclerview.widget.RecyclerView>
