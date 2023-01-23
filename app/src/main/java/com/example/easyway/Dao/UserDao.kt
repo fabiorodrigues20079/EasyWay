@@ -15,5 +15,7 @@ interface UserDao
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(user:UserInfo)
 
+    @Query("SELECT * FROM userInfo WHERE userInfo.email =:email")
+    fun checkLogin(email:String):List<UserInfo>
 
 }

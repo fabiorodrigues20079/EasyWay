@@ -7,12 +7,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easyway.Models.Meal
 import com.example.easyway.Services.MealService
 import com.example.easyway.Services.TicketService
 import com.example.easyway.adapters.MealAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,6 +56,7 @@ class WeekMealsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_week_meals)
+
 
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
         val isEmployee = sharedPref.getInt("isEmployee",0)
@@ -103,6 +107,17 @@ class WeekMealsActivity : AppCompatActivity() {
                 val adapter = MealAdapter(meals)
                 mealsRv.adapter = adapter
                 println(meals)
+
+                // Guarda as meals da semana na base de dados local
+                for(meal in meals)
+                {   var IPCAdb = IPCADatabase.getDataBase(this@WeekMealsActivity)
+                    lifecycleScope.launch(Dispatchers.IO)
+                    {
+                        var meal = com.example.easyway.Entities.Meal(meal.mealDate,meal.price.toString(),meal.Did,meal.MPId,meal.Cid)
+                        IPCAdb.MealsDao().insert(meal)
+                    }
+                }
+
                 adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener{
                     override fun onItemclick(position: Int) {
                         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)

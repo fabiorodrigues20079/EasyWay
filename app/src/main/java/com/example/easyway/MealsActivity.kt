@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easyway.Models.Meal
@@ -15,6 +16,8 @@ import com.example.easyway.Services.MealService
 import com.example.easyway.Services.TicketService
 import com.example.easyway.adapters.MealAdapter
 import com.example.easyway.adapters.TicketAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -73,6 +76,7 @@ class MealsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meals)
 
+
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
 
         val isEmployee = sharedPref.getInt("isEmployee",0)
@@ -83,7 +87,7 @@ class MealsActivity : AppCompatActivity() {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         mealsRv.layoutManager = linearLayoutManager
 
-        //obter refeições para hoje
+        //Obter refeições para hoje
         get_today_meals()
 
         buttonProfileDetails.setOnClickListener {
@@ -124,8 +128,6 @@ class MealsActivity : AppCompatActivity() {
 
         call.enqueue(object:Callback<List<Meal>>{
             override fun onResponse(call: Call<List<Meal>>, response: Response<List<Meal>>) {
-                //Adicionar à recycler view
-
 
                 if (response.code() == 404) {
                     Toast.makeText(this@MealsActivity, "No meals for today", Toast.LENGTH_LONG)
@@ -135,6 +137,18 @@ class MealsActivity : AppCompatActivity() {
                     val adapter = MealAdapter(meals)
                     mealsRv.adapter = adapter
                     println(meals)
+
+                    // Guarda as meals do dia na base de dados local
+
+                    for(meal in meals)
+                    {   var IPCAdb = IPCADatabase.getDataBase(this@MealsActivity)
+                        lifecycleScope.launch(Dispatchers.IO)
+                        {
+                            var meal = com.example.easyway.Entities.Meal(meal.mealDate,meal.price.toString(),meal.Did,meal.MPId,meal.Cid)
+                            IPCAdb.MealsDao().insert(meal)
+                        }
+                    }
+
                     adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener {
                         override fun onItemclick(position: Int) {
                             var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)

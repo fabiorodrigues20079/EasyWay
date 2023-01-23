@@ -17,13 +17,14 @@ import androidx.core.content.getSystemService
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import com.example.easyway.Dao.PersonDao
-import com.example.easyway.Entities.Person
 import com.example.easyway.Entities.UserInfo
 import com.example.easyway.Models.Login
 import com.example.easyway.Models.User
 import com.example.easyway.Services.LoginService
 import com.example.easyway.Services.MealService
 import com.example.easyway.Services.TicketService
+import com.example.easyway.Models.Person
+import com.example.easyway.Services.UserService
 import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     val loginService = retrofit.create(LoginService::class.java)
+    val userService = retrofit.create(UserService::class.java)
 
     // Declaração de variáveis
     val ticketBagIcon: ImageView by lazy { findViewById<ImageView>(R.id.ticketBag_action_bar) }
@@ -63,23 +65,28 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
 
-        var IPCAdb = IPCADatabase.getDataBase(this@LoginActivity)
+        // Se tiver internet faz login através da API, senão usa base de dados local
+
 
         button.setOnClickListener{
-            login(email.text.toString(),password.text.toString())
+            println(isOnline())
+            if(isOnline()==true)
+            {   addUsersToDB()
+
+                login(email.text.toString(),password.text.toString())
+            }
+
+            else
+            {
+                loginDB(email.text.toString(),password.text.toString())
+            }
         }
-
-
-       lifecycleScope.launch(Dispatchers.IO)
-       {
-           val person = IPCAdb.userInfoDao().getUserInfo()
-           println(person)
-       }
     }
 
-    //Funcao para fazer o login
+
+
+    //Função para fazer o login através da API (ONLINE)
     fun login(email:String,password:String){
         // Vai ao service de login buscar o método login
         val log = loginService.Login(Login(email,password))
@@ -127,22 +134,61 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
-    
-     /*fun isNetWorkAvailable():Boolean
-    {
-        var info : NetworkInfo?= null
-       val connectivity: ConnectivityManager = this@LoginActivity.getSystemService(Service.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        if(connectivity!=null)
+
+    // Função para fazer o login através da base de dados local
+    fun loginDB(email:String,pasword:String)
+    {  var IPCAdb = IPCADatabase.getDataBase(this@LoginActivity)
+        lifecycleScope.launch(Dispatchers.IO)
         {
-            info = connectivity!!.activeNetworkInfo
-
-            if(info!=null)
+            val users = IPCAdb.userInfoDao().checkLogin(email)
+            for(user in users)
             {
-                return info.state==NetworkInfo.State.CONNECTED
+               if(user.email == email && user.hashPassword== password.toString())
+               {
+                   val intent = Intent(this@LoginActivity,DashboardActivity::class.java)
+                   startActivity(intent)
+               }
             }
         }
+    }
 
-    }*/
+
+    // Função que irá permitir,sempre que se entrar na página login, guardar todos os utilizadores existentes na base de dados
+    fun addUsersToDB()
+    {
+         val call = userService.getAllUsers()
+
+        call.enqueue(object: Callback<List<com.example.easyway.Models.Person>> {
+            override fun onResponse(call: Call<List<Person>>, response: Response<List<Person>>) {
+                var persons = response.body()!!
+                for(person in persons)
+                {   var IPCAdb = IPCADatabase.getDataBase(this@LoginActivity)
+                    lifecycleScope.launch(Dispatchers.IO)
+                    {   println(person)
+                        var persona = com.example.easyway.Entities.Person(person.Pid,person.name,
+                        person.isDisabled,person.phoneNumber,person.idNumber)
+                        var userInfo = UserInfo(person.Pid,person.email,person.hashPassword,
+                            person.isEmployee,person.Balance,null)
+                        IPCAdb.userInfoDao().insert(userInfo)
+                        IPCAdb.PersonDao().insert(persona)
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<Person>>, t: Throwable) {
+                println("No users!")
+            }
+        })
+    }
+
+    // Função que verifica se existe conexão à internet
+    fun isOnline(): Boolean {
+        val connMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        return networkInfo?.isConnected == true
+    }
+
 }
 

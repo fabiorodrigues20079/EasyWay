@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.easyway.Models.Meal
@@ -14,6 +15,8 @@ import com.example.easyway.Models.Transaction
 import com.example.easyway.Services.*
 import com.example.easyway.adapters.MealAdapter
 import com.example.easyway.adapters.TransactionAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,6 +61,11 @@ class BalanceActivity : AppCompatActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_balance)
+
+
+          //  var IPCAdb = IPCADatabase.getDataBase(this@BalanceActivity)
+
+
 
             //Acessar os dados da SharedPreferences
             var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
