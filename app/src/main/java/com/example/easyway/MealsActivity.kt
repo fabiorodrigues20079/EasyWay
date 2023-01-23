@@ -1,6 +1,9 @@
 package com.example.easyway
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,6 +28,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MealsActivity : AppCompatActivity() {
@@ -83,12 +88,36 @@ class MealsActivity : AppCompatActivity() {
         if(isEmployee == 1) { // Verifica se é funcionário
             ticketBagIcon.visibility = View.VISIBLE
         }
+
+
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         mealsRv.layoutManager = linearLayoutManager
 
         //Obter refeições para hoje
-        get_today_meals()
+        if(isOnline())
+        {
+            get_today_meals()
+        }
+        else
+        {
+            var IPCAdb = IPCADatabase.getDataBase(this@MealsActivity)
+
+            lifecycleScope.launch(Dispatchers.IO)
+            {
+                val meals = IPCAdb.MealsDao().getTodaymeals(tomorrow)
+                println(meals)
+                var auxList :MutableList<Meal> = ArrayList()
+                for(meal in meals){
+                    println(meal.mealDate)
+                    var newMeal = Meal(meal.mealDate,meal.price!!.toDouble(),meal.description!!,meal.MPId!!,meal.Cid!!,meal.Did!!)
+                    println(newMeal)
+                    auxList.add(newMeal)
+                }
+                println(auxList)
+                auxMeals(auxList)
+            }
+        }
 
         buttonProfileDetails.setOnClickListener {
             val intent = Intent(this,ProfileDetailsActivity::class.java)
@@ -121,6 +150,13 @@ class MealsActivity : AppCompatActivity() {
         }
     }
 
+
+    fun isOnline(): Boolean {
+        val connMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        return networkInfo?.isConnected == true
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun get_today_meals(){
         val call = mealService.get_all_meals_by_date(tomorrow.toString())
@@ -134,50 +170,55 @@ class MealsActivity : AppCompatActivity() {
                         .show()
                 } else {
                     val meals = response.body()!!
-                    val adapter = MealAdapter(meals)
-                    mealsRv.adapter = adapter
-                    println(meals)
 
-                    // Guarda as meals do dia na base de dados local
-
-                    for(meal in meals)
-                    {   var IPCAdb = IPCADatabase.getDataBase(this@MealsActivity)
-                        lifecycleScope.launch(Dispatchers.IO)
-                        {
-                            var meal = com.example.easyway.Entities.Meal(meal.mealDate,meal.price.toString(),meal.Did,meal.MPId,meal.Cid)
-                            IPCAdb.MealsDao().insert(meal)
-                        }
-                    }
-
-                    adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener {
-                        override fun onItemclick(position: Int) {
-                            var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
-                            val pid = sharedPref.getString("pid", null)
-                            val result =
-                                ticketService.insertTicket(meals.get(position), pid.toString())
-                            println(result)
-                            result.enqueue(object : Callback<List<String>> {
-                                override fun onResponse(
-                                    call: Call<List<String>>,
-                                    response: Response<List<String>>
-                                ) {
-
-                                    val intent =
-                                        Intent(this@MealsActivity, DashboardActivity::class.java)
-                                    startActivity(intent)
-                                }
-
-                                override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                                    println("error")
-                                }
-                            })
-                        }
-                    })
                 }
             }
 
             override fun onFailure(call: Call<List<Meal>>, t: Throwable) {
                 println("No meals found")
+            }
+        })
+    }
+
+
+    fun auxMeals(meals:List<Meal>){
+        val adapter = MealAdapter(meals)
+        mealsRv.adapter = adapter
+        println(meals)
+
+        // Guarda as meals do dia na base de dados local
+
+        for(meal in meals)
+        {   var IPCAdb = IPCADatabase.getDataBase(this@MealsActivity)
+            lifecycleScope.launch(Dispatchers.IO)
+            {
+                var meal = com.example.easyway.Entities.Meal(meal.mealDate,meal.price.toString(),meal.Did,meal.MPId,meal.Cid,meal.description)
+                IPCAdb.MealsDao().insert(meal)
+            }
+        }
+
+        adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener {
+            override fun onItemclick(position: Int) {
+                var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+                val pid = sharedPref.getString("pid", null)
+                val result =
+                    ticketService.insertTicket(meals.get(position), pid.toString())
+                println(result)
+                result.enqueue(object : Callback<List<String>> {
+                    override fun onResponse(
+                        call: Call<List<String>>,
+                        response: Response<List<String>>
+                    ) {
+
+                        val intent =
+                            Intent(this@MealsActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                        println("error")
+                    }
+                })
             }
         })
     }

@@ -43,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
     val baseURL = "http://10.0.2.2:5000/"
     var retrofit = Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build()
 
-
     val loginService = retrofit.create(LoginService::class.java)
     val userService = retrofit.create(UserService::class.java)
 
@@ -70,13 +69,11 @@ class LoginActivity : AppCompatActivity() {
 
 
         button.setOnClickListener{
-            println(isOnline())
-            if(isOnline()==true)
-            {   addUsersToDB()
-
+            if(isOnline())
+            {
+                addUsersToDB()
                 login(email.text.toString(),password.text.toString())
             }
-
             else
             {
                 loginDB(email.text.toString(),password.text.toString())
@@ -99,28 +96,16 @@ class LoginActivity : AppCompatActivity() {
                     val jsonParser = JsonParser()
                     val jsonObject = jsonParser.parse(user)
                     val newUser = jsonObject.asJsonArray.get(0).asJsonObject
-
+                    var name = newUser.get("name").toString()
+                    name = name.substring(1,name.length-1)
+                    var email = newUser.get("email").toString()
+                    email = email.substring(1,email.length-1)
+                    var idNumber = newUser.get("idNumber").toString()
+                    idNumber = idNumber.substring(1,idNumber.length-1)
+                    var pid = newUser.get("pid").toString()
+                    var isEmployee = newUser.get("isEmployee").toString()
                     // Utilização de SharedPreferences
-                    val sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
-                    val editor = sharedPref.edit()
-                    editor.apply()
-                    {
-                        var name = newUser.get("name").toString()
-                        name = name.substring(1,name.length-1)
-                        var email = newUser.get("email").toString()
-                        email = email.substring(1,email.length-1)
-                        var idNumber = newUser.get("idNumber").toString()
-                        idNumber = idNumber.substring(1,idNumber.length-1)
-                        var pid = newUser.get("pid").toString()
-                        var isEmployee = newUser.get("isEmployee").toString()
-                        putString("name",name)
-                        putString("email",email)
-                        putString("idNumber",idNumber)
-                        putString("pid",pid)
-                        putInt("isEmployee", isEmployee.toInt())
-                        apply()
-                    }
-
+                    addToSharedPreference(name,email,idNumber,pid,isEmployee)
                     val intent = Intent(this@LoginActivity,DashboardActivity::class.java)
                     startActivity(intent)
                 }
@@ -137,19 +122,21 @@ class LoginActivity : AppCompatActivity() {
 
 
     // Função para fazer o login através da base de dados local
-    fun loginDB(email:String,pasword:String)
+    fun loginDB(email:String,password:String)
     {  var IPCAdb = IPCADatabase.getDataBase(this@LoginActivity)
         lifecycleScope.launch(Dispatchers.IO)
         {
             val users = IPCAdb.userInfoDao().checkLogin(email)
-            for(user in users)
+            val person = IPCAdb.PersonDao().getPerson(users[0].pid!!)
+            addToSharedPreference(person[0].name!!,users[0].email!!,person[0].idNumber,person[0].pid.toString(),users[0].isEmployee.toString())
+
+            if(users[0].email == email && users[0].hashPassword== password)
             {
-               if(user.email == email && user.hashPassword== password.toString())
-               {
-                   val intent = Intent(this@LoginActivity,DashboardActivity::class.java)
-                   startActivity(intent)
-               }
+
+                val intent = Intent(this@LoginActivity,DashboardActivity::class.java)
+                startActivity(intent)
             }
+
         }
     }
 
@@ -188,6 +175,21 @@ class LoginActivity : AppCompatActivity() {
         val connMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
         return networkInfo?.isConnected == true
+    }
+
+
+    fun addToSharedPreference(name:String,email:String,idNumber:String?,pid:String?,isEmployee:String){
+        val sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.apply()
+        {
+            putString("name",name)
+            putString("email",email)
+            putString("idNumber",idNumber)
+            putString("pid",pid)
+            putInt("isEmployee", isEmployee.toInt())
+            apply()
+        }
     }
 
 }

@@ -61,10 +61,11 @@ class DashboardActivity : AppCompatActivity() {
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
         val name = sharedPref.getString("name",null)
         val isEmployee = sharedPref.getInt("isEmployee",0)
-
         if(isEmployee == 1) { // Se é funcionário, botão da ticket bag aparece
             ticketBagIcon.visibility = View.VISIBLE
         }
+
+
         welcomeTv.setText("Welcome $name") // Welcome text
 
         buttonToday.setOnClickListener {

@@ -1,6 +1,9 @@
 package com.example.easyway
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -68,7 +71,30 @@ class WeekMealsActivity : AppCompatActivity() {
         mealsRv.layoutManager = linearLayoutManager
 
         //obter todas as ementas da semana
-        getWeekMeals()
+        if(isOnline())
+        {
+            getWeekMeals()
+        }
+        else
+        {
+            var IPCAdb = IPCADatabase.getDataBase(this@WeekMealsActivity)
+
+            lifecycleScope.launch(Dispatchers.IO)
+            {
+                val meals = IPCAdb.MealsDao().getAllMeals()
+                println(meals)
+                var auxList :MutableList<Meal> = ArrayList()
+                for(meal in meals){
+                    println(meal.mealDate)
+                    var newMeal = Meal(meal.mealDate,meal.price!!.toDouble(),meal.description!!,meal.MPId!!,meal.Cid!!,meal.Did!!)
+                    println(newMeal)
+                    auxList.add(newMeal)
+                }
+                println(auxList)
+                auxMeals(auxList)
+            }
+        }
+
 
 
         buttonProfileDetails.setOnClickListener {
@@ -104,41 +130,7 @@ class WeekMealsActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Meal>>, response: Response<List<Meal>>) {
                 //Adicionar à recycler view
                 val meals = response.body()!!
-                val adapter = MealAdapter(meals)
-                mealsRv.adapter = adapter
-                println(meals)
-
-                // Guarda as meals da semana na base de dados local
-                for(meal in meals)
-                {   var IPCAdb = IPCADatabase.getDataBase(this@WeekMealsActivity)
-                    lifecycleScope.launch(Dispatchers.IO)
-                    {
-                        var meal = com.example.easyway.Entities.Meal(meal.mealDate,meal.price.toString(),meal.Did,meal.MPId,meal.Cid)
-                        IPCAdb.MealsDao().insert(meal)
-                    }
-                }
-
-                adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener{
-                    override fun onItemclick(position: Int) {
-                        var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
-                        val pid = sharedPref.getString("pid",null)
-                        val result = ticketService.insertTicket(meals.get(position),pid.toString())
-                        println(result)
-                        result.enqueue(object :Callback<List<String>>{
-                            override fun onResponse(
-                                call: Call<List<String>>,
-                                response: Response<List<String>>
-                            ) {
-                                val intent = Intent(this@WeekMealsActivity,DashboardActivity::class.java)
-                                startActivity(intent)
-                            }
-
-                            override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                                println("error")
-                            }
-                        })
-                    }
-                })
+                auxMeals(meals)
             }
 
             override fun onFailure(call: Call<List<Meal>>, t: Throwable) {
@@ -146,5 +138,52 @@ class WeekMealsActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    // Função que verifica se existe conexão à internet
+    fun isOnline(): Boolean {
+        val connMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        return networkInfo?.isConnected == true
+    }
+
+
+    fun auxMeals(meals:List<Meal>){
+        println(meals)
+        val adapter = MealAdapter(meals)
+        mealsRv.adapter = adapter
+        println(meals)
+
+        //Guarda as meals da semana na base de dados local
+        for(meal in meals)
+        {   var IPCAdb = IPCADatabase.getDataBase(this@WeekMealsActivity)
+            lifecycleScope.launch(Dispatchers.IO)
+            {
+                var meal = com.example.easyway.Entities.Meal(meal.mealDate,meal.price.toString(),meal.Did,meal.MPId,meal.Cid,meal.description)
+                IPCAdb.MealsDao().insert(meal)
+            }
+        }
+
+        adapter.setOnItemClickListener(object : MealAdapter.onItemClickListener{
+            override fun onItemclick(position: Int) {
+                var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
+                val pid = sharedPref.getString("pid",null)
+                val result = ticketService.insertTicket(meals.get(position),pid.toString())
+                println(result)
+                result.enqueue(object :Callback<List<String>>{
+                    override fun onResponse(
+                        call: Call<List<String>>,
+                        response: Response<List<String>>
+                    ) {
+                        val intent = Intent(this@WeekMealsActivity,DashboardActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                        println("error")
+                    }
+                })
+            }
+        })
     }
 }

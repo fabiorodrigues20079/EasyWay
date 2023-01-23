@@ -79,22 +79,22 @@ class BalanceActivity : AppCompatActivity() {
             transactionsRv.layoutManager = linearLayoutManager
             getbalance(number.toString())
 
-                val call = TransactionService.previousBalance(number.toString())
-                call.enqueue(object :Callback<List<Transaction>>{
-                    override fun onResponse(
-                        call: Call<List<Transaction>>,
-                        response: Response<List<Transaction>>
-                    ) {
-                        val transaction = response.body()!!
-                        val adapter = TransactionAdapter(transaction)
-                        transactionsRv.adapter = adapter
-                        println(transaction)
-                    }
+            val call = TransactionService.previousBalance(number.toString())
+            call.enqueue(object :Callback<List<Transaction>>{
+                override fun onResponse(
+                    call: Call<List<Transaction>>,
+                    response: Response<List<Transaction>>
+                ) {
+                    val transaction = response.body()!!
+                    val adapter = TransactionAdapter(transaction)
+                    transactionsRv.adapter = adapter
+                    println(transaction)
+                }
 
-                    override fun onFailure(call: Call<List<Transaction>>, t: Throwable) {
-                        Toast.makeText(this@BalanceActivity,"No transactions available!",Toast.LENGTH_LONG).show()
-                    }
-                })
+                override fun onFailure(call: Call<List<Transaction>>, t: Throwable) {
+                    Toast.makeText(this@BalanceActivity,"No transactions available!",Toast.LENGTH_LONG).show()
+                }
+            })
 
 
 

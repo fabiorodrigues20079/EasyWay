@@ -74,16 +74,17 @@ class TicketActivity : AppCompatActivity() {
         val linearLayoutManager = LinearLayoutManager(this@TicketActivity)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         ticketRv.layoutManager = linearLayoutManager
+
+
         var sharedPref = getSharedPreferences("preferences", MODE_PRIVATE)
         val pid = sharedPref.getString("pid",null)
         userIdNumber = sharedPref.getString("idNumber",null)!!
-
-
         val isEmployee = sharedPref.getInt("isEmployee",0)
-
         if(isEmployee == 1) {
             ticketBagIcon.visibility = View.VISIBLE
         }
+
+
         getTickets(pid.toString())
 
 
@@ -190,7 +191,6 @@ class TicketActivity : AppCompatActivity() {
                     })
                 }
             }
-
             override fun onFailure(call: Call<List<Ticket>>, t: Throwable) {
                 println("No tickets")
             }

@@ -61,31 +61,29 @@ class ProfileDetailsActivity : AppCompatActivity() {
                 ticketBagIcon.visibility = View.VISIBLE
             }
 
-        buttonHome.setOnClickListener {
-            val intent = Intent(this,DashboardActivity::class.java)
-            startActivity(intent)
-        }
+            buttonHome.setOnClickListener {
+                val intent = Intent(this,DashboardActivity::class.java)
+                startActivity(intent)
+            }
 
-        buttonBalance.setOnClickListener  {
-            val intent = Intent(this@ProfileDetailsActivity,BalanceActivity::class.java)
-            startActivity(intent)
-        }
+            buttonBalance.setOnClickListener  {
+                val intent = Intent(this@ProfileDetailsActivity,BalanceActivity::class.java)
+                startActivity(intent)
+            }
 
-        buttonMeals.setOnClickListener{
-            val intent = Intent(this@ProfileDetailsActivity,WeekMealsActivity::class.java)
-            startActivity(intent)
-        }
+            buttonMeals.setOnClickListener{
+                val intent = Intent(this@ProfileDetailsActivity,WeekMealsActivity::class.java)
+                startActivity(intent)
+            }
 
-        buttonInfo.setOnClickListener{
-            val intent = Intent(this@ProfileDetailsActivity,TicketActivity::class.java)
-            startActivity(intent)
-        }
+            buttonInfo.setOnClickListener{
+                val intent = Intent(this@ProfileDetailsActivity,TicketActivity::class.java)
+                startActivity(intent)
+            }
 
             ticketBagIcon.setOnClickListener {
                 val intent = Intent(this@ProfileDetailsActivity, TicketBagActivity::class.java)
                 startActivity(intent)
             }
-
-
     }
 }

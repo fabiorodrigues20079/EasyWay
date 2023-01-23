@@ -40,7 +40,7 @@ abstract class IPCADatabase:RoomDatabase()
                 val instance = Room.databaseBuilder( // Criar a instância da base de dados
                     context.applicationContext,
                     IPCADatabase::class.java,
-                    "IPCA_database1").build()
+                    "IPCA_database2").build()
 
                 INSTANCE = instance
                 return instance
